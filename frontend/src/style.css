@@ -542,19 +542,23 @@ input:not([type=checkbox]),select,textarea{min-height:40px}
 @media(max-width:760px){.layout,.layout.has-evidence{display:block}.sidebar{width:min(320px,86vw)}.sidebar-resize-handle{display:none}}
 @media(prefers-reduced-motion:reduce){.sidebar-resize-handle::after{transition:none}}
 
-/* Keep the chat composer in view while long conversations scroll above it. */
-.main.chat-main{height:calc(100dvh - 60px);min-height:0;max-height:calc(100dvh - 60px);overflow:hidden;padding-bottom:18px}
+/* Let long chats use the page scrollbar; keep the composer in view. */
+.main{max-height:none;overflow:visible}
+.sidebar{top:60px}
+.evidence{top:60px}
+.main.chat-main{--chat-gutter:clamp(28px,4.2vw,72px);height:auto;min-height:calc(100dvh - 60px);max-height:none;overflow:visible;padding-bottom:190px}
 .chat-main .page-head{flex:none}
-.chat-main .conversation{display:flex;flex:1 1 auto;flex-direction:column;gap:22px;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin:0 auto;padding:0 4px 22px;scrollbar-color:var(--line) transparent}
+.chat-main .conversation{display:flex;flex:1 1 auto;flex-direction:column;gap:22px;min-height:0;overflow:visible;margin:0 auto;padding:0 4px 22px}
 .chat-main .conversation>.message{flex:none}
 .chat-main .conversation>.message:first-child{margin-top:auto}
-.chat-main .composer{flex:none;margin:0 auto}
+.chat-main .composer{position:fixed;z-index:25;left:calc(var(--sidebar-actual) + (100vw - var(--sidebar-actual))/2);bottom:16px;flex:none;width:min(1120px,calc(100vw - var(--sidebar-actual) - var(--chat-gutter) - var(--chat-gutter)));margin:0;transform:translateX(-50%)}
 .chat-main .slash-command-menu{bottom:170px}
-@media(max-width:760px){.main.chat-main{padding-bottom:calc(14px + env(safe-area-inset-bottom))}.chat-main .conversation{padding-bottom:14px}}
+@media(max-width:1120px){.main.chat-main{--chat-gutter:clamp(24px,4vw,48px)}}
+@media(max-width:760px){.main.chat-main{--chat-gutter:20px;padding-bottom:calc(190px + env(safe-area-inset-bottom))}.chat-main .conversation{padding-bottom:14px}.chat-main .composer{left:50%;bottom:calc(14px + env(safe-area-inset-bottom));width:calc(100vw - 40px)}}
 
 /* Align chat content and composer to one balanced reading column. */
 .chat-main .page-head{margin-bottom:18px;padding-bottom:18px}
-.chat-main .conversation,.chat-main .composer{width:min(100%,1120px)}
+.chat-main .conversation{width:min(100%,1120px)}
 .chat-main .message.assistant .bubble{flex:1;min-width:0;max-width:none}
 .chat-main .message.user .bubble{max-width:min(76%,760px)}
 .chat-main .composer{padding:10px 14px}
