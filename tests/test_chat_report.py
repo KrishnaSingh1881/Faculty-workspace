@@ -31,11 +31,17 @@ def test_report_is_scoped_to_saved_chat_and_keeps_reasons():
             response=await client.get('/api/conversations/1/report?format=xlsx')
             assert response.status_code==200, response.text
             book=load_workbook(io.BytesIO(response.content),data_only=False)
-            assert book.sheetnames==['Comparison 1','Reasons']
-            assert [book['Comparison 1'].cell(1,col).value for col in range(1,6)]==['Q. No','Base 2025','Q. No','Past 2024','Classification']
-            assert book['Comparison 1']['E3'].value=='B'
-            assert book['Reasons']['G2'].value=='Step 3: Q1a is partial.'
-            assert book['Reasons'].max_row==2
+            assert book.sheetnames==['Papers','A-B-C Classification']
+            assert 'Base vs Comparison 1: Base 2025 vs Past 2024' in book['Papers']['A4'].value
+            assert [book['Papers'].cell(5,col).value for col in range(1,5)]==['Base question no.','Base question','Comparison question no.','Comparison question']
+            assert book['Papers']['A6'].value=='1a' and book['Papers']['C6'].value=='1a'
+            summary=book['A-B-C Classification']
+            assert summary['D5'].value.startswith('=COUNTIFS(')
+            assert summary['E5'].value.startswith('=COUNTIFS(')
+            assert summary['F5'].value.startswith('=COUNTIFS(')
+            assert summary['I5'].value=='=IF(H5=0,"",(D5+E5)/H5)'
+            assert 'Step 3: Q1a is partial.' in summary['H13'].value
+            assert len(summary._charts)==1
             text=await client.get('/api/conversations/1/report?format=txt')
             assert 'Step 3: Q1a is partial.' in text.text and 'Different chat result' not in text.text
             saved=await client.post('/api/conversations/items',json={'subject_id':1,'kind':'comparison','item_id':1,'text':'Saved comparison'})
