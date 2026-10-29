@@ -2086,6 +2086,8 @@ def resolve_pattern_papers(db: Db, body: PaperComparisonInput):
     found = {paper.id: paper for paper in db.scalars(select(Paper).where(Paper.id.in_(paper_ids), Paper.subject_id == body.subject_id, Paper.archived.is_(False)))}
     if len(found) != len(paper_ids):
         raise HTTPException(422, "Every selected paper must be active and belong to the current subject")
+    if any(paper.generated for paper in found.values()):
+        raise HTTPException(422, "Generated draft papers cannot be used in a paper comparison. Choose uploaded papers instead.")
     issues, target_ids, reference_ids, unit_map = [], [], [], {}
 
     def extract_for(paper: Paper):
