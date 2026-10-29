@@ -48,7 +48,7 @@ def test_insem_automatically_selects_ten_questions_per_unit(monkeypatch):
     monkeypatch.setattr(api, 'inspect_local_models', AsyncMock(return_value={'judge_installed': True}))
     with sessions.begin() as db:
         db.add(Subject(id=1, code='test', name='Test', tree={'nodes':[{'id':'test/u1/a','kind':'topic'}, {'id':'test/u2/a','kind':'topic'}]}))
-        db.add(Paper(id=1, subject_id=1, title='Past paper'))
+        db.add(Paper(id=1, subject_id=1, title='Past paper', file_hash='past'))
         db.add_all([Question(id=unit,paper_id=1,number=str(unit),text='Explain the topic',unit=unit,topic_ids=[f'test/u{unit}/a'],confirmed=True) for unit in (1,2)])
     with sessions() as db:
         result = asyncio.run(api.start_generation(api.GenerationInput(subject_id=1,title='InSem',insem=True,prefer_bc=True),db))

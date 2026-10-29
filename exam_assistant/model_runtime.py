@@ -118,9 +118,10 @@ async def chat_json(
     think: bool | None = None,
     num_ctx: int | None = None,
     on_event=None,
+    max_tokens: int | None = None,
 ) -> dict:
     async with model_session():
-        return await chat_json_in_session(model, messages, tools=tools, keep_alive=keep_alive, think=think, num_ctx=num_ctx, on_event=on_event)
+        return await chat_json_in_session(model, messages, tools=tools, keep_alive=keep_alive, think=think, num_ctx=num_ctx, on_event=on_event, max_tokens=max_tokens)
 
 
 async def chat_json_in_session(
@@ -133,6 +134,7 @@ async def chat_json_in_session(
     num_ctx: int | None = None,
     on_event=None,
     format_json: bool = True,
+    max_tokens: int | None = None,
 ) -> dict:
     """Call Ollama while the caller owns the shared model/GPU session lock."""
     if not model:
@@ -142,7 +144,7 @@ async def chat_json_in_session(
         "model": model,
         "messages": messages,
         "stream": True,
-        "options": {"temperature": 0, "num_predict": _max_output_tokens()},
+        "options": {"temperature": 0, "num_predict": max_tokens if max_tokens is not None else _max_output_tokens()},
         "keep_alive": keep_alive,
     }
     if num_ctx is not None:
@@ -279,9 +281,9 @@ async def model_session():
             await asyncio.to_thread(_unlock_file, handle)
 
 
-async def model_json(messages: list[dict], *, on_event=None, think: bool | None = None) -> dict:
+async def model_json(messages: list[dict], *, on_event=None, think: bool | None = None, max_tokens: int | None = None) -> dict:
     """Compatibility adapter for non-comparison local model tasks."""
-    result = await chat_json(JUDGE_MODEL, messages, keep_alive="5m", on_event=on_event, think=think)
+    result = await chat_json(JUDGE_MODEL, messages, keep_alive="5m", on_event=on_event, think=think, max_tokens=max_tokens)
     content = result["message"].get("content", "")
     try:
         parsed = json.loads(content)

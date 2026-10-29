@@ -33,7 +33,7 @@ from .comparison_agents import run_tool_agent
 from .model_runtime import chat_context_tokens, inspect_local_models, model_session
 from .chat_tools import SYSTEM as CHAT_SYSTEM, bind_chat_tools
 from .chat_routing import compact_trace, select_chat_tools
-from .generation import PROMPT_VERSION as GENERATION_PROMPT_VERSION, draft_slot
+from .generation import PROMPT_VERSION as GENERATION_PROMPT_VERSION, draft_slot, draft_batch_with_fallback, screen_batch
 from .replacements import replacement_report
 from .knowledge import unit_for_topic, validate_tree
 from .material_enrichment import PROMPT_VERSION as MATERIAL_PROMPT_VERSION, chunks_for as material_chunks_for, map_material
@@ -1414,11 +1414,12 @@ async def start_generation(body: GenerationInput, db: Db = Depends(db_session)):
                     "topic_ids": [available[index * len(available) // len(numbers)]], "marks": 4,
                     "count": 1, "difficulty": body.difficulty, "constraints": body.constraints})
         if not body.reference_ids:
-            selected = db.scalars(select(Question).join(Paper).where(
-                Paper.subject_id == body.subject_id, Paper.archived.is_(False), Paper.generated.is_(False),
-                Question.confirmed.is_(True), Question.unit.in_([1, 2])
-            ).order_by(Paper.id.desc(), Question.id)).all()
-            body.reference_ids = [question.id for unit in (1, 2) for question in [q for q in selected if q.unit == unit][:60]]
+            past_papers = db.scalars(select(Paper).where(Paper.subject_id == body.subject_id,
+                Paper.archived.is_(False), Paper.generated.is_(False), Paper.file_hash.is_not(None)).order_by(Paper.created_at.desc(), Paper.id.desc())).all()
+            reference_paper = next((p for p in past_papers if {1, 2}.issubset({q.unit for q in p.questions if q.confirmed})), None)
+            if not reference_paper:
+                raise HTTPException(422, "Upload a past paper with tagged questions in both Unit 1 and Unit 2 before generating an InSem draft")
+            body.reference_ids = [q.id for q in reference_paper.questions if q.confirmed and q.unit in (1, 2)]
     elif body.template_id:
         template = db.get(Template, body.template_id)
         if not template or template.kind != "paper" or template.subject_id not in (None, body.subject_id):
@@ -1460,10 +1461,12 @@ async def start_generation(body: GenerationInput, db: Db = Depends(db_session)):
         ids = slot.get("topic_ids")
         if not isinstance(ids, list) or not ids or len(ids) > 3 or any(not isinstance(topic_id, str) for topic_id in ids) or len(set(ids)) != len(ids) or any(topic_id not in topic_nodes or unit_for_topic(topic_id) != slot["unit"] for topic_id in ids):
             raise HTTPException(422, f"Generation slot topics must belong to unit {slot.get('unit')}")
+    if body.insem and len({question.paper_id for question in questions.values()}) != 1:
+        raise HTTPException(422, "Choose exactly one past paper for the InSem quick screen")
     for slot in slots:
         if not any(question.unit == slot["unit"] for question in questions.values()):
             raise HTTPException(422, f"Provide at least one confirmed reference question from unit {slot['unit']}")
-    paper = Paper(subject_id=body.subject_id, title=body.title, status="draft", generated=True, generation={"status": "queued", "prompt_version": GENERATION_PROMPT_VERSION, "reference_ids": body.reference_ids, "slots": slots, "template_id": body.template_id, "prefer_bc": body.prefer_bc})
+    paper = Paper(subject_id=body.subject_id, title=body.title, status="draft", generated=True, generation={"status": "queued", "prompt_version": GENERATION_PROMPT_VERSION, "reference_ids": body.reference_ids, "slots": slots, "template_id": body.template_id, "prefer_bc": body.prefer_bc, "screen_strategy": "insem_quick_v1" if body.insem else None, "reference_paper_id": next(iter(questions.values())).paper_id if body.insem else None, "reference_paper_title": next(iter(questions.values())).paper.title if body.insem else None})
     db.add(paper)
     total = sum(slot["count"] for slot in slots)
     db.flush()
@@ -3460,7 +3463,88 @@ async def _preferred_generation_job(payload: dict, job_id: int):
         db.add(AuditEvent(action="question_generation_complete", details={"paper_id": paper.id, "comparison_id": comparison.id, "outcome_counts": counts, "prefer_bc": True}))
 
 
+async def _insem_batch_generation_job(payload: dict, job_id: int):
+    paper_id, slots, reference_ids = int(payload["paper_id"]), payload["slots"], payload["reference_ids"]
+    total = sum(slot["count"] for slot in slots)
+    with Session() as db:
+        paper = db.get(Paper, paper_id)
+        if not paper:
+            raise RuntimeError("Draft paper was deleted")
+        subject = subject_or_404(db, paper.subject_id)
+        nodes = {node["id"]: node for node in subject.tree.get("nodes", [])}
+        references = [db.get(Question, qid) for qid in reference_ids]
+        if any(q is None for q in references):
+            raise RuntimeError("A selected past question was deleted")
+        by_unit = {unit: [{"number": q.number, "text": q.text} for q in references if q.unit == unit] for unit in (1, 2)}
+        completed_initial = len(paper.questions)
+        paper.generation = {**paper.generation, "status": "running", "total": total, "progress": completed_initial, "error": None}
+        db.commit()
+    set_progress(job_id, completed_initial, total)
+    for unit in (1, 2):
+        unit_slots = [slot for slot in slots if slot["unit"] == unit]
+        for batch_index in range(0, len(unit_slots), 5):
+            ensure_not_cancelled(job_id)
+            with Session() as db:
+                paper = db.get(Paper, paper_id)
+                existing_numbers = {q.number for q in paper.questions}
+                existing = [q.text for q in paper.questions if q.unit == unit]
+            pending = [slot for slot in unit_slots[batch_index:batch_index+5] if slot["number"] not in existing_numbers]
+            if not pending:
+                continue
+            if not by_unit[unit]:
+                raise RuntimeError(f"The selected past paper has no tagged Unit {unit} questions")
+            with Session.begin() as db:
+                paper = db.get(Paper, paper_id)
+                paper.generation = {**paper.generation, "stage": f"Drafting Unit {unit} batch {batch_index//5+1}/2"}
+            topics = [nodes[tid] for tid in dict.fromkeys(tid for slot in pending for tid in slot["topic_ids"]) if tid in nodes]
+            candidates = await draft_batch_with_fallback(pending, topics, by_unit[unit], existing)
+            ensure_not_cancelled(job_id)
+            with Session.begin() as db:
+                paper = db.get(Paper, paper_id)
+                paper.generation = {**paper.generation, "stage": f"Checking Unit {unit} batch {batch_index//5+1}/2"}
+            screening = await screen_batch([{"number": number, **candidate} for number, candidate in candidates.items()], by_unit[unit], existing)
+            repeats = [slot for slot in pending if screening[slot["number"]]["status"] == "too_close"]
+            if repeats:
+                ensure_not_cancelled(job_id)
+                with Session.begin() as db:
+                    paper = db.get(Paper, paper_id)
+                    paper.generation = {**paper.generation, "stage": f"Replacing {len(repeats)} repeated question(s) in Unit {unit}"}
+                other = existing + [item["text"] for item in candidates.values()]
+                try:
+                    replacement = await draft_batch_with_fallback(repeats, topics, by_unit[unit], other)
+                    replacement_screen = await screen_batch([{"number": number, **candidate} for number, candidate in replacement.items()], by_unit[unit], other)
+                    candidates.update(replacement)
+                    screening.update(replacement_screen)
+                except ValueError:
+                    pass  # Preserve the original repeat and its reason for faculty review.
+            ensure_not_cancelled(job_id)
+            with Session.begin() as db:
+                paper = db.get(Paper, paper_id)
+                screens = dict(paper.generation.get("quick_screens") or {})
+                for slot in pending:
+                    number = slot["number"]
+                    candidate = candidates[number]
+                    db.add(Question(paper_id=paper_id, number=number, text=candidate["text"], marks=slot["marks"], unit=unit, topic_ids=candidate["topic_ids"], confirmed=True))
+                    screens[number] = screening[number]
+                completed = len(existing_numbers) + len(pending)
+                paper.generation = {**paper.generation, "quick_screens": screens, "progress": completed, "stage": f"Checked {completed}/{total} questions"}
+            set_progress(job_id, completed, total)
+    ensure_not_cancelled(job_id)
+    with Session.begin() as db:
+        paper = db.get(Paper, paper_id)
+        screens = paper.generation.get("quick_screens") or {}
+        counts = {status: sum(item.get("status") == status for item in screens.values()) for status in ("different", "too_close", "review")}
+        paper.generation = {**paper.generation, "status": "checked", "stage": "Finished", "quick_counts": counts,
+            "claim": "Quick screen against one past paper; faculty review is required."}
+        db.add(AuditEvent(action="question_generation_complete", details={"paper_id": paper.id, "quick_counts": counts, "strategy": "insem_quick_v1"}))
+
+
 async def _question_generation_job(payload: dict, job_id: int):
+    with Session() as db:
+        paper = db.get(Paper, int(payload["paper_id"]))
+        quick_screen = paper and (paper.generation or {}).get("screen_strategy") == "insem_quick_v1"
+    if quick_screen:
+        return await _insem_batch_generation_job(payload, job_id)
     if payload.get("prefer_bc"):
         return await _preferred_generation_job(payload, job_id)
     paper_id = int(payload["paper_id"])
