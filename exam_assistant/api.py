@@ -2417,7 +2417,7 @@ async def comparison_detail(cid: int, db: Db = Depends(db_session)):
     return {
         **comparison_out(comparison),
         "job": {"id": job.id, "status": job.status, "progress": job.progress, "total": job.total, "error": job.error} if job else None,
-        "results": [{"id": r.id, "target": question_out(db.get(Question, r.target_id)), "reference": question_out(db.get(Question, r.reference_id)), "label": r.label, "reason": r.reason, "evidence": r.evidence, "source": r.source, "block": result_block(r), "stale": result_is_stale(db, r, subject.tree_version)} for r in results],
+        "results": [{"id": r.id, "target": question_out(db.get(Question, r.target_id)), "reference": question_out(db.get(Question, r.reference_id)), "base_paper": {"id": db.get(Question, r.target_id).paper_id, "title": db.get(Question, r.target_id).paper.title}, "reference_paper": {"id": db.get(Question, r.reference_id).paper_id, "title": db.get(Question, r.reference_id).paper.title}, "label": r.label, "reason": r.reason, "evidence": r.evidence, "source": r.source, "block": result_block(r), "stale": result_is_stale(db, r, subject.tree_version)} for r in results],
     }
 
 

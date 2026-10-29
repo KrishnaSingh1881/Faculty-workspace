@@ -6,7 +6,7 @@ import { ReadableData } from './ReadableData'
 const roles: Record<string, string> = { workspace: 'Assistant', helper: 'Helper', judge: 'Judge', extractor: 'Requirement extraction', system: 'Workspace' }
 const humanize = (value: string) => value.replaceAll('_', ' ').replace(/\b\w/g, letter => letter.toUpperCase())
 
-type ChatComparison = { title:string; strategy?:string; status:string; progress:number; total:number; error:string|null; job?:{status:string}|null; results:{id:number; label:string; reason:string; source:string; stale?:boolean; target:{number:string; text:string; unit:number|null}; reference:{number:string; text:string}; block?:{unit:number; questions:{id:number; number:string; text:string}[]}|null; evidence:unknown[]}[] }
+type ChatComparison = { title:string; strategy?:string; status:string; progress:number; total:number; error:string|null; job?:{status:string}|null; results:{id:number; label:string; reason:string; source:string; stale?:boolean; target:{number:string; text:string; unit:number|null; paper_id:number}; reference:{number:string; text:string; paper_id?:number}; base_paper?:{id:number; title:string}; reference_paper?:{id:number; title:string}; block?:{unit:number; questions:{id:number; number:string; text:string}[]}|null; evidence:unknown[]}[] }
 
 function ReviewResult({ resultId, onSaved }: { resultId:number; onSaved:()=>void }) {
   const [label, setLabel] = useState('A')
@@ -22,7 +22,7 @@ function ReviewResult({ resultId, onSaved }: { resultId:number; onSaved:()=>void
   return <details><summary>Review this result</summary><div className="inline-form"><label>Classification<select value={label} onChange={e=>setLabel(e.target.value)}><option value="A">A · Repeat</option><option value="B">B · Related</option><option value="C">C · Unrelated</option></select></label><label>Reason<textarea value={reason} onChange={e=>setReason(e.target.value)}/></label><button className="primary" disabled={!reason.trim()} onClick={()=>void save()}>Save review</button>{message&&<p role="status">{message}</p>}</div></details>
 }
 
-export function ComparisonProgress({ comparisonId }: { comparisonId: number }) {
+export function ComparisonProgress({ comparisonId, papers = [] }: { comparisonId: number; papers?:{id:number; title:string}[] }) {
   const [events, setEvents] = useState<Activity[]>([])
   const [comparison, setComparison] = useState<ChatComparison | null>(null)
   const [error, setError] = useState('')
@@ -60,6 +60,24 @@ export function ComparisonProgress({ comparisonId }: { comparisonId: number }) {
   }
   const active = comparison && ['queued', 'running'].includes(comparison.status)
   const pendingCancel = comparison?.job?.status === 'cancel_requested'
+  const resultsByPaper = useMemo(() => {
+    const groups = new Map<number, { title:string; baseTitle:string; results:ChatComparison['results'] }>()
+    const titleFor = (id:number) => papers.find(paper=>paper.id===id)?.title
+    for (const result of comparison?.results || []) {
+      const id = result.reference_paper?.id ?? result.reference.paper_id ?? result.id
+      const group = groups.get(id) || { title:result.reference_paper?.title || titleFor(id) || `Paper ${id}`, baseTitle:result.base_paper?.title || titleFor(result.target.paper_id) || '', results:[] }
+      group.results.push(result)
+      groups.set(id, group)
+    }
+    const titleParts = comparison?.title.split(/\s+vs\s+/i) || []
+    const baseTitle = titleParts[0] || ''
+    const comparisonTitles = titleParts.slice(1).join(' vs ').split(/,\s*/).filter(Boolean)
+    return [...groups.values()].map((group, index) => ({
+      ...group,
+      title: group.title.startsWith('Paper ') ? comparisonTitles[index] || group.title : group.title,
+      baseTitle: group.baseTitle || baseTitle,
+    }))
+  }, [comparison?.results, papers])
   return <div className="chat-comparison">
     <div className="content-actions"><div><strong>{comparison?.title || `Comparison #${comparisonId}`}</strong><p className="hint">{pendingCancel ? 'Stopping this comparison after the current model response' : comparison?.status || 'Connecting'} · {comparison?.progress || 0}/{comparison?.total || 0} {comparison?.strategy ? 'unit checks' : 'pairs'}</p></div>{active && <button className="subtle" disabled={cancelling || pendingCancel} onClick={() => void cancel()}>{pendingCancel ? 'Stopping…' : cancelling ? 'Cancelling…' : 'Cancel entire comparison'}</button>}</div>
     {error && <p className="error" role="alert">{error}</p>}
@@ -67,7 +85,9 @@ export function ComparisonProgress({ comparisonId }: { comparisonId: number }) {
     <details className="comparison-activity" open={!!active}><summary>Comparison activity</summary><ActivityTimeline events={events} live={!!active && !pendingCancel} /></details>
     {!!comparison?.results.length && <section className="chat-comparison-results" aria-label="Comparison results">
       <div className="results-heading"><div><h3>Comparison results</h3><p>{comparison.results.length} {comparison.results.length === 1 ? 'result' : 'results'} available</p></div><div className="results-counts" aria-label="Classification counts">{(['A','B','C','review'] as const).map(label => <span key={label}><b>{comparison.results.filter(result => result.label === label).length}</b> {label === 'review' ? 'Review' : label}</span>)}</div></div>
-      {comparison.results.map(result => <article className="chat-result" key={result.id}>
+      {resultsByPaper.map((group, groupIndex) => <section className="chat-comparison-group" key={group.title+'-'+groupIndex}>
+        <header className="chat-comparison-group-heading"><div><h4>Comparison {groupIndex+1}</h4><p><strong>Base:</strong> {group.baseTitle || 'Selected paper'} <span aria-hidden="true">→</span> <strong>Compared with:</strong> {group.title} · {group.results.length} {group.results.length===1?'result':'results'}</p></div><div className="results-counts" aria-label={`Classifications for ${group.title}`}>{(['A','B','C','review'] as const).map(label => <span key={label}><b>{group.results.filter(result=>result.label===label).length}</b> {label==='review'?'Review':label}</span>)}</div></header>
+        {group.results.map(result => <article className="chat-result" key={result.id}>
         <div className="result-card-heading"><div className="result-card-meta"><span className="result-number">Q{result.target.number}</span><span>{result.block ? `Unit ${result.block.unit} · Past paper block` : `Unit ${result.target.unit ?? '—'} · Compared with Q${result.reference.number}`}</span></div><span className={'label '+result.label.toLowerCase()}>{result.label === 'A' ? (result.block?'A · Same topic and depth':'A · Repeat') : result.label === 'B' ? (result.block?'B · Different or partial':'B · Related') : result.label === 'C' ? (result.block?'C · Topic absent':'C · Unrelated') : 'Needs review'}</span></div>
         <div className="result-card-question"><span>Base question</span><p>{result.target.text}</p></div>
         <div className="result-card-reason"><span>Why {result.label === 'review' ? 'review is needed' : result.label}</span><p>{result.reason || 'No reason was recorded for this result.'}</p></div>
@@ -75,7 +95,8 @@ export function ComparisonProgress({ comparisonId }: { comparisonId: number }) {
         <details className="result-evidence"><summary><span>{result.block ? 'View past paper block' : 'View comparison question'}</span><ChevronRight size={16}/></summary>{result.block ? <div className="result-block">{result.block.questions.map(question=><div key={question.id}><strong>Q{question.number}</strong><p>{question.text}</p></div>)}</div> : <p>{result.reference.text}</p>}</details>
         <details className="result-evidence"><summary><span>Evidence and checks</span><ChevronRight size={16}/></summary><ReadableData value={result.evidence}/></details>
         {(result.label==='review'||result.source==='faculty_case_review')&&<ReviewResult resultId={result.id} onSaved={()=>setVersion(value=>value+1)}/>}
-      </article>)}
+        </article>)}
+      </section>)}
     </section>}
   </div>
 }
