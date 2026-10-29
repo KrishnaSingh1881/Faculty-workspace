@@ -33,7 +33,7 @@ from .comparison_agents import run_tool_agent
 from .model_runtime import chat_context_tokens, inspect_local_models, model_session
 from .chat_tools import SYSTEM as CHAT_SYSTEM, bind_chat_tools
 from .chat_routing import compact_trace, select_chat_tools
-from .generation import PROMPT_VERSION as GENERATION_PROMPT_VERSION, draft_slot, draft_batch_with_fallback, screen_batch
+from .generation import PROMPT_VERSION as GENERATION_PROMPT_VERSION, draft_slot, draft_batch_with_fallback, screen_batch, semantic_topic_hints
 from .replacements import replacement_report
 from .knowledge import unit_for_topic, validate_tree
 from .material_enrichment import PROMPT_VERSION as MATERIAL_PROMPT_VERSION, chunks_for as material_chunks_for, map_material
@@ -2187,7 +2187,7 @@ async def run_block_comparison(db, comparison, pairs, unit_overrides, subject, j
                 result = {"label": cached.label, "reason": cached.reason, "evidence": cached.evidence, "source": cached.source, "model": cached.model}
                 activity(target, first, {"agent": "system", "event": "cache_hit", "payload": {"label": cached.label}})
             else:
-                result = await classify_block(target, references, unit, on_event=lambda event: activity(target, first, {"agent": "judge", **event}))
+                result = await classify_block(target, references, unit, on_event=lambda event: activity(target, first, {"agent": "judge", **event}), syllabus=subject.tree)
             if job_id:
                 ensure_not_cancelled(job_id)
             db.add(PairResult(comparison_id=comparison.id, target_id=target.id, reference_id=first.id, cache_key=key, **result))
@@ -3482,6 +3482,22 @@ async def _insem_batch_generation_job(payload: dict, job_id: int):
     set_progress(job_id, completed_initial, total)
     for unit in (1, 2):
         unit_slots = [slot for slot in slots if slot["unit"] == unit]
+        if not unit_slots:
+            continue
+        with Session() as db:
+            completed_numbers = {q.number for q in db.get(Paper, paper_id).questions}
+        if all(slot["number"] in completed_numbers for slot in unit_slots):
+            continue
+        unit_topics = [nodes[tid] for tid in dict.fromkeys(tid for slot in unit_slots for tid in slot["topic_ids"]) if tid in nodes]
+        try:
+            hints = await semantic_topic_hints(unit_topics, by_unit[unit])
+        except ModelUnavailable as exc:
+            logger.warning("Semantic context unavailable for generation: %s", exc)
+            with Session.begin() as db:
+                current = db.get(Paper, paper_id)
+                current.generation = {**current.generation, "semantic_warning": "Semantic topic matching was unavailable; questions were generated without it."}
+            hints = {}
+        ensure_not_cancelled(job_id)
         for batch_index in range(0, len(unit_slots), 5):
             ensure_not_cancelled(job_id)
             with Session() as db:
@@ -3496,7 +3512,7 @@ async def _insem_batch_generation_job(payload: dict, job_id: int):
             with Session.begin() as db:
                 paper = db.get(Paper, paper_id)
                 paper.generation = {**paper.generation, "stage": f"Drafting Unit {unit} batch {batch_index//5+1}/2"}
-            topics = [nodes[tid] for tid in dict.fromkeys(tid for slot in pending for tid in slot["topic_ids"]) if tid in nodes]
+            topics = [{**nodes[tid], "related_past_questions": hints.get(tid, [])} for tid in dict.fromkeys(tid for slot in pending for tid in slot["topic_ids"]) if tid in nodes]
             candidates = await draft_batch_with_fallback(pending, topics, by_unit[unit], existing)
             ensure_not_cancelled(job_id)
             with Session.begin() as db:

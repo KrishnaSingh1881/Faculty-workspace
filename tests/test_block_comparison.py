@@ -46,10 +46,10 @@ def test_instruction_and_citation_checks():
     assert block.validate_decision('ANSWER: C\nREASON: Step 2: the topic is absent.', base, [ref])[0] == 'review'
     assert block.validate_decision('ANSWER: A\nREASON: Step 3: Q9 matches.', base, [ref])[0] == 'review'
     ref.text = 'Compare scheduling methods.'
-    assert block.validate_decision('ANSWER: A\nREASON: Step 3: Q2 matches.', base, [ref])[0] == 'review'
+    assert block.validate_decision('ANSWER: A\nREASON: Step 3: Q2 matches.', base, [ref])[0] == 'A'
     assert block.validate_decision('ANSWER: B\nREASON: Step 3: Q2 compares scheduling.', base, [ref])[0] == 'B'
     base.text = 'Draw a scheduling diagram.'
-    assert block.validate_decision('ANSWER: A\nREASON: Step 3: Q2 matches.', base, [ref])[0] == 'review'
+    assert block.validate_decision('ANSWER: A\nREASON: Step 3: Q2 matches.', base, [ref])[0] == 'A'
     assert block.instruction_verb('Q2a. Write short note on scheduling')['group'] == 'A'
 
 
@@ -80,3 +80,18 @@ def test_c_with_shared_topic_phrase_needs_review():
     assert label == 'review'
     assert checks['shared_phrases'] == {'2': ['system software']}
     assert block.validate_decision('ANSWER: B\nREASON: Step 2: Q2 covers system software, but not application software.', base, [ref])[0] == 'B'
+
+
+def test_expanded_instruction_verbs_and_unknowns():
+    for verb, group in [('Discuss', 'A'), ('Draw', 'A'), ('Distinguish', 'B'),
+                        ('Contrast', 'B'), ('Develop', 'C'), ('Formulate', 'C')]:
+        assert block.instruction_verb(f'Q2a. {verb} the process')['group'] == group
+    assert block.instruction_verb('List the process states')['group'] is None
+
+
+def test_unknown_verbs_are_context_not_automatic_review():
+    base, ref = question(1, 1), question(2, 2)
+    base.text, ref.text = 'List the process states.', 'Identify the process states.'
+    result = block.validate_decision('ANSWER: A\nREASON: Step 3: Q2 covers the same process states and task.', base, [ref])
+    assert result[0] == 'A'
+    assert result[2]['base_verb']['group'] is None

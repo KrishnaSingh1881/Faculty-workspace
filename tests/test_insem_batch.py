@@ -31,6 +31,7 @@ def test_batch_generation_retries_only_repeats_and_resumes(monkeypatch):
         return {q['number']:{'status':'too_close' if q['number']=='1' and not existing else 'different','reason':'Checked'} for q in batch}
     d=AsyncMock(side_effect=draft); check=AsyncMock(side_effect=screen)
     monkeypatch.setattr(api,'draft_batch_with_fallback',d);monkeypatch.setattr(api,'screen_batch',check)
+    monkeypatch.setattr(api,'semantic_topic_hints',AsyncMock(return_value={'t': [{'question':'q','similarity':0.9}]}))
     payload={'paper_id':2,'reference_ids':[1],'slots':slots}
     asyncio.run(api._insem_batch_generation_job(payload,1))
     with sessions() as db:
@@ -38,6 +39,7 @@ def test_batch_generation_retries_only_repeats_and_resumes(monkeypatch):
         assert len(paper.questions)==5 and paper.generation['quick_counts']['different']==5
         assert len(paper.generation['quick_screens'])==5
     assert d.await_count==2 and len(d.await_args_list[1].args[0])==1
+    assert d.await_args_list[0].args[1][0]['related_past_questions'][0]['question'] == 'q'
     asyncio.run(api._insem_batch_generation_job(payload,1))
     assert d.await_count==2
     engine.dispose()
@@ -53,3 +55,13 @@ def test_invalid_batch_splits_into_smaller_calls(monkeypatch):
     slots=[{'number':str(i)} for i in range(5)]
     result=asyncio.run(generation.draft_batch_with_fallback(slots, [], [], []))
     assert set(result)==set(str(i) for i in range(5))
+
+
+def test_semantic_hints_rank_past_questions_for_topics(monkeypatch):
+    from exam_assistant import generation
+    monkeypatch.setattr(generation, 'embed_texts', AsyncMock(return_value=[[1, 0], [0, 1], [1, 0]]))
+    result = asyncio.run(generation.semantic_topic_hints(
+        [{'id':'1', 'label':'topic'}],
+        [{'number':'2', 'text':'other'}, {'number':'3', 'text':'similar'}]))
+    assert result['1'][0] == {'question':'3', 'similarity':1.0}
+    assert result['1'][1]['question'] == '2'

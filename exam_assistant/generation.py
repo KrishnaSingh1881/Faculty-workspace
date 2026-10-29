@@ -1,9 +1,11 @@
 """Constrained local drafting of exam questions from explicit syllabus slots."""
 
 import json
+import math
 import re
 
 from .engine import model_json, ModelUnavailable
+from .embeddings import embed_texts
 
 
 PROMPT_VERSION = "question-generation-v3"
@@ -53,7 +55,9 @@ async def draft_slot(slot: dict, topics: list[dict], references: list[dict], exi
 BATCH_DRAFT_SYSTEM = '''You are an exam paper setter. Produce one complete question per requested slot.
 Use the slot's supplied topic IDs, unit and marks. Questions must be clear, distinct, self-contained,
 answerable in the available marks and grounded in the supplied topics. Avoid repeating the past
-questions or earlier draft questions. Do not include answers or invent unsupported syllabus content.
+questions or earlier draft questions. Related past-question hints show relevant syllabus context and
+exam style: use them to inspire meaningful new assessed tasks, not to copy or paraphrase.
+Hints are imperfect and do not replace the syllabus. Do not include answers or invent unsupported syllabus content.
 Return JSON only: {"questions":[{"number":"slot number","text":"question","topic_ids":["topic ID"]}]}.
 Return every slot exactly once, with its exact number and one or more allowed topic IDs.'''
 
@@ -117,6 +121,26 @@ async def draft_batch(slots, topics, references, existing):
             raise ValueError("The draft model returned invalid JSON") from exc
         raise
     return validate_batch_drafts(result, slots, existing)
+
+
+async def semantic_topic_hints(topics, references):
+    """Find past-paper examples for each syllabus topic before drafting."""
+    if not topics or not references:
+        return {}
+    def topic_text(topic):
+        return str(topic.get('label') or topic.get('name') or topic.get('title') or topic['id'])
+    vectors = await embed_texts([topic_text(topic) for topic in topics] + [item['text'] for item in references])
+    topic_vectors, reference_vectors = vectors[:len(topics)], vectors[len(topics):]
+    hints = {}
+    for topic, vector in zip(topics, topic_vectors):
+        norm = math.sqrt(sum(x * x for x in vector))
+        scores = []
+        for reference, other in zip(references, reference_vectors):
+            other_norm = math.sqrt(sum(x * x for x in other))
+            score = sum(a * b for a, b in zip(vector, other)) / (norm * other_norm)
+            scores.append({'question': reference['number'], 'similarity': round(score, 3)})
+        hints[topic['id']] = sorted(scores, key=lambda item: item['similarity'], reverse=True)[:3]
+    return hints
 
 
 async def screen_batch(candidates, references, existing):
