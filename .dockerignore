@@ -1,0 +1,13 @@
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.git
+build
+dist
+*.egg-info
+data
+frontend/node_modules
+frontend/dist
+frontend/tsconfig.tsbuildinfo
+benchmark-result.json

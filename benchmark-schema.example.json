@@ -1,0 +1,13 @@
+[
+  {
+    "id": "replace-with-labeled-case-id",
+    "family": "replace-with-question-family-id",
+    "category": "compound-choice",
+    "subject_code": "2301202",
+    "label": "B",
+    "questions": [
+      {"text": "Explain deadlock prevention.", "unit": 3, "marks": 5, "topic_ids": []},
+      {"text": "Explain deadlock prevention and evaluate its effect on resource utilization.", "unit": 3, "marks": 8, "topic_ids": []}
+    ]
+  }
+]

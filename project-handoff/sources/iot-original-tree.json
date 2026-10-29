@@ -1,0 +1,1673 @@
+{
+  "schema_version": "1.0",
+  "syllabus_version": "KKW-AIDS-2023",
+  "course": {
+    "code": "2301306A",
+    "title": "Internet of Things",
+    "year": "TY",
+    "semester": "V",
+    "course_type": "PEC",
+    "prerequisites": [
+      "2301206: Digital Electronics and Logic Design"
+    ],
+    "unit_count": 5,
+    "textbooks": [
+      "Arshdeep Bahga, Vijay Madisetti, Internet of Things – A Hands-on Approach, Universities Press",
+      "Honbo Zhou, The Internet of Things in the Cloud: A Middleware Perspective, CRC Press",
+      "Gastón C. Hillar, Internet of Things with Python",
+      "Uckelmann, Harrison, Michahelles, Architecting the Internet of Things, Springer"
+    ],
+    "reference_books": [
+      "Easley, Kleinberg, Networks, Crowds, and Markets, Cambridge University Press",
+      "Hersent, Elloumi, Boswarthick, The Internet of Things: Applications to the Smart Grid and Building Automation, Wiley",
+      "Hersent, Boswarthick, Elloumi, The Internet of Things – Key Applications and Protocols, Wiley",
+      "Barrie Sosinsky, Cloud Computing Bible, Wiley-India",
+      "McEwen, Cassimally, Designing the Internet of Things, Wiley"
+    ],
+    "course_outcomes": [
+      {
+        "id": "CO1",
+        "text": "Explain the characteristics and methodology to design IoT system",
+        "bloom_level": "L2_UNDERSTAND"
+      },
+      {
+        "id": "CO2",
+        "text": "Identify various devices required for different IoT applications.",
+        "bloom_level": "L3_APPLY"
+      },
+      {
+        "id": "CO3",
+        "text": "Describe various IoT protocols for communication between different endpoints to develop client server application.",
+        "bloom_level": "L2_UNDERSTAND"
+      },
+      {
+        "id": "CO4",
+        "text": "Explain various elements of IoT Securities",
+        "bloom_level": "L2_UNDERSTAND"
+      },
+      {
+        "id": "CO5",
+        "text": "Make use of various cloud offering available for IoT Platform",
+        "bloom_level": "L3_APPLY"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "2301306A",
+      "parent": null,
+      "kind": "course",
+      "label": "Internet of Things",
+      "order": 0,
+      "source_text": "2301306A: Internet of Things"
+    },
+    {
+      "id": "2301306A/u1",
+      "parent": "2301306A",
+      "kind": "unit",
+      "label": "Introduction to IoT and its Platforms Design Methodology",
+      "order": 0,
+      "source_text": "Unit I Introduction to IoT and its Platforms Design",
+      "unit_meta": {
+        "number": 1,
+        "hours": 9,
+        "course_outcomes": [
+          "CO1"
+        ]
+      },
+      "context_words": [
+        "iot",
+        "design"
+      ]
+    },
+    {
+      "id": "2301306A/u1/definition",
+      "parent": "2301306A/u1",
+      "kind": "topic",
+      "label": "Definition and characteristics of IoT",
+      "order": 0,
+      "source_text": "Definition and characteristics of IoT",
+      "description": "What IoT is and its defining characteristics.",
+      "key_points": [
+        "dynamic and self-adapting",
+        "self-configuring",
+        "interoperable protocols",
+        "unique identity"
+      ],
+      "synonyms": [
+        "what is iot",
+        "definition of iot",
+        "characteristics of iot"
+      ],
+      "acronyms": [
+        "IoT"
+      ],
+      "context_words": [
+        "definition",
+        "characteristics"
+      ]
+    },
+    {
+      "id": "2301306A/u1/applications",
+      "parent": "2301306A/u1",
+      "kind": "topic",
+      "label": "Applications of IoT",
+      "order": 1,
+      "source_text": "Applications",
+      "description": "IoT application domains.",
+      "key_points": [
+        "home automation",
+        "smart cities",
+        "healthcare",
+        "agriculture",
+        "industry"
+      ],
+      "synonyms": [
+        "iot applications",
+        "applications of iot"
+      ],
+      "context_words": [
+        "application",
+        "smart"
+      ]
+    },
+    {
+      "id": "2301306A/u1/physical-design",
+      "parent": "2301306A/u1",
+      "kind": "topic",
+      "label": "Physical design of IoT",
+      "order": 2,
+      "source_text": "Physical design of IoT",
+      "description": "The things and protocols that make up an IoT system physically.",
+      "distinguish_from": [
+        {
+          "node": "2301306A/u1/logical-design",
+          "how": "devices and protocols, not functional blocks"
+        }
+      ],
+      "synonyms": [
+        "physical design of iot"
+      ],
+      "context_words": [
+        "physical design"
+      ]
+    },
+    {
+      "id": "2301306A/u1/physical-design/things",
+      "parent": "2301306A/u1/physical-design",
+      "kind": "topic",
+      "label": "Things of IoT",
+      "order": 0,
+      "source_text": "Things of IoT",
+      "description": "IoT devices: sensing, actuation and their interfaces.",
+      "key_points": [
+        "unique identity",
+        "sensing and actuation",
+        "device interfaces"
+      ],
+      "synonyms": [
+        "things in iot",
+        "iot devices"
+      ],
+      "context_words": [
+        "things",
+        "device"
+      ]
+    },
+    {
+      "id": "2301306A/u1/physical-design/protocols",
+      "parent": "2301306A/u1/physical-design",
+      "kind": "topic",
+      "label": "IoT protocols (physical design overview)",
+      "order": 1,
+      "source_text": "IoT Protocols",
+      "description": "The IoT protocol stack by layer at overview level.",
+      "key_points": [
+        "link layer",
+        "network layer",
+        "transport layer",
+        "application layer: http coap mqtt xmpp amqp"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301306A/u3",
+          "how": "layer-wise overview, not the Unit III protocols"
+        }
+      ],
+      "synonyms": [
+        "iot protocol stack"
+      ],
+      "acronyms": [
+        "MQTT",
+        "CoAP",
+        "XMPP",
+        "AMQP"
+      ],
+      "context_words": [
+        "protocol stack",
+        "layer",
+        "mqtt",
+        "coap"
+      ]
+    },
+    {
+      "id": "2301306A/u1/logical-design",
+      "parent": "2301306A/u1",
+      "kind": "topic",
+      "label": "Logical design of IoT",
+      "order": 3,
+      "source_text": "Logical design of IoT",
+      "description": "Abstract view: functional blocks, communication models and APIs.",
+      "distinguish_from": [
+        {
+          "node": "2301306A/u1/physical-design",
+          "how": "functional abstraction, not devices"
+        }
+      ],
+      "synonyms": [
+        "logical design of iot"
+      ],
+      "context_words": [
+        "logical design"
+      ]
+    },
+    {
+      "id": "2301306A/u1/logical-design/functional-blocks",
+      "parent": "2301306A/u1/logical-design",
+      "kind": "topic",
+      "label": "IoT functional blocks",
+      "order": 0,
+      "source_text": "IoT functional blocks",
+      "description": "Device, communication, services, management, security and application blocks.",
+      "key_points": [
+        "device",
+        "communication",
+        "services",
+        "management",
+        "security",
+        "application"
+      ],
+      "synonyms": [
+        "functional blocks of iot"
+      ],
+      "context_words": [
+        "functional block"
+      ]
+    },
+    {
+      "id": "2301306A/u1/logical-design/communication-models",
+      "parent": "2301306A/u1/logical-design",
+      "kind": "topic",
+      "label": "IoT communication models",
+      "order": 1,
+      "source_text": "IoT communication models",
+      "description": "Request-response, publish-subscribe, push-pull and exclusive pair.",
+      "key_points": [
+        "request-response",
+        "publish-subscribe",
+        "push-pull",
+        "exclusive pair"
+      ],
+      "synonyms": [
+        "communication models"
+      ],
+      "context_words": [
+        "request-response",
+        "publish-subscribe",
+        "push-pull",
+        "exclusive pair"
+      ]
+    },
+    {
+      "id": "2301306A/u1/logical-design/communication-apis",
+      "parent": "2301306A/u1/logical-design",
+      "kind": "topic",
+      "label": "IoT communication APIs",
+      "order": 2,
+      "source_text": "IoT Communication APIs",
+      "description": "REST-based and WebSocket-based communication APIs.",
+      "key_points": [
+        "rest",
+        "websocket"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301306A/u5/communication-api",
+          "how": "design-level API types, not cloud communication APIs"
+        }
+      ],
+      "synonyms": [
+        "rest api",
+        "websocket api"
+      ],
+      "acronyms": [
+        "REST"
+      ],
+      "context_words": [
+        "rest",
+        "websocket",
+        "api"
+      ]
+    },
+    {
+      "id": "2301306A/u1/enabling-technologies",
+      "parent": "2301306A/u1",
+      "kind": "topic",
+      "label": "IoT enabling technologies",
+      "order": 4,
+      "source_text": "IoT enabling technologies",
+      "description": "Technologies behind IoT.",
+      "key_points": [
+        "wireless sensor networks",
+        "cloud computing",
+        "big data analytics",
+        "embedded systems"
+      ],
+      "synonyms": [
+        "enabling technologies"
+      ],
+      "context_words": [
+        "enabling"
+      ]
+    },
+    {
+      "id": "2301306A/u1/levels",
+      "parent": "2301306A/u1",
+      "kind": "topic",
+      "label": "IoT levels and deployment templates",
+      "order": 5,
+      "source_text": "IoT levels and deployment templates",
+      "description": "Levels 1 to 6 of IoT deployment with their components.",
+      "key_points": [
+        "level 1 to level 6",
+        "local vs cloud analysis",
+        "coordinator node"
+      ],
+      "synonyms": [
+        "iot levels",
+        "deployment templates"
+      ],
+      "context_words": [
+        "level",
+        "deployment"
+      ]
+    },
+    {
+      "id": "2301306A/u1/issues",
+      "parent": "2301306A/u1",
+      "kind": "topic",
+      "label": "IoT issues and challenges",
+      "order": 6,
+      "source_text": "IoT Issues and Challenges",
+      "description": "Open problems: security, privacy, interoperability, scalability.",
+      "key_points": [
+        "privacy",
+        "interoperability",
+        "scalability",
+        "power"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301306A/u4/challenges",
+          "how": "general challenges, not security specifically"
+        }
+      ],
+      "synonyms": [
+        "challenges in iot",
+        "issues in iot"
+      ],
+      "context_words": [
+        "issues",
+        "challenges"
+      ]
+    },
+    {
+      "id": "2301306A/u1/design-methodology",
+      "parent": "2301306A/u1",
+      "kind": "heading",
+      "label": "IoT platform design methodology",
+      "order": 7,
+      "source_text": "IoT Platform Design Methodology:",
+      "description": "The ten-step methodology for designing an IoT system.",
+      "synonyms": [
+        "iot design methodology",
+        "iot platform design methodology"
+      ],
+      "context_words": [
+        "specification",
+        "methodology",
+        "step"
+      ]
+    },
+    {
+      "id": "2301306A/u1/design-methodology/purpose",
+      "parent": "2301306A/u1/design-methodology",
+      "kind": "topic",
+      "label": "Purpose and requirement specification",
+      "order": 0,
+      "source_text": "Purpose and requirement specification",
+      "description": "Defining system purpose, behaviour and requirements.",
+      "synonyms": [
+        "purpose and requirements"
+      ],
+      "context_words": [
+        "purpose",
+        "requirement"
+      ]
+    },
+    {
+      "id": "2301306A/u1/design-methodology/process",
+      "parent": "2301306A/u1/design-methodology",
+      "kind": "topic",
+      "label": "Process specification",
+      "order": 1,
+      "source_text": "Process specification",
+      "description": "Use cases derived from the purpose.",
+      "key_points": [
+        "use cases"
+      ],
+      "synonyms": [
+        "process specification"
+      ],
+      "context_words": [
+        "process specification"
+      ]
+    },
+    {
+      "id": "2301306A/u1/design-methodology/domain-model",
+      "parent": "2301306A/u1/design-methodology",
+      "kind": "topic",
+      "label": "Domain model specification",
+      "order": 2,
+      "source_text": "Domain model specification",
+      "description": "Main concepts, entities and objects of the domain.",
+      "key_points": [
+        "physical entity",
+        "virtual entity",
+        "device",
+        "resource",
+        "service"
+      ],
+      "synonyms": [
+        "domain model"
+      ],
+      "context_words": [
+        "domain"
+      ]
+    },
+    {
+      "id": "2301306A/u1/design-methodology/information-model",
+      "parent": "2301306A/u1/design-methodology",
+      "kind": "topic",
+      "label": "Information model specification",
+      "order": 3,
+      "source_text": "Information model specification",
+      "description": "Structure of information: attributes and relations of virtual entities.",
+      "key_points": [
+        "virtual entity attributes",
+        "relations"
+      ],
+      "synonyms": [
+        "information model"
+      ],
+      "context_words": [
+        "information model"
+      ]
+    },
+    {
+      "id": "2301306A/u1/design-methodology/service",
+      "parent": "2301306A/u1/design-methodology",
+      "kind": "topic",
+      "label": "Service and IoT level specification",
+      "order": 4,
+      "source_text": "Service specifications level specification",
+      "description": "Services of the system and the chosen IoT deployment level.",
+      "key_points": [
+        "service types",
+        "inputs outputs endpoints",
+        "deployment level"
+      ],
+      "synonyms": [
+        "service specification",
+        "iot level specification"
+      ],
+      "context_words": [
+        "service"
+      ],
+      "notes": "Printed garbled; interpreted as service specification plus IoT level specification."
+    },
+    {
+      "id": "2301306A/u1/design-methodology/functional-view",
+      "parent": "2301306A/u1/design-methodology",
+      "kind": "topic",
+      "label": "Functional view specification",
+      "order": 5,
+      "source_text": "Functional view specification",
+      "description": "Mapping functional groups to the domain and information models.",
+      "key_points": [
+        "functional groups"
+      ],
+      "synonyms": [
+        "functional view"
+      ],
+      "context_words": [
+        "functional view"
+      ]
+    },
+    {
+      "id": "2301306A/u1/design-methodology/operational-view",
+      "parent": "2301306A/u1/design-methodology",
+      "kind": "topic",
+      "label": "Operational view specification",
+      "order": 6,
+      "source_text": "Operational view specification",
+      "description": "Deployment and operation options: hosting, storage, devices.",
+      "key_points": [
+        "service hosting",
+        "storage options",
+        "device options"
+      ],
+      "synonyms": [
+        "operational view"
+      ],
+      "context_words": [
+        "operational view"
+      ]
+    },
+    {
+      "id": "2301306A/u1/design-methodology/integration",
+      "parent": "2301306A/u1/design-methodology",
+      "kind": "topic",
+      "label": "Device and component integration",
+      "order": 7,
+      "source_text": "Device and component integration",
+      "description": "Integrating devices and components into the system.",
+      "synonyms": [
+        "device integration"
+      ],
+      "context_words": [
+        "integration"
+      ]
+    },
+    {
+      "id": "2301306A/u1/design-methodology/app-development",
+      "parent": "2301306A/u1/design-methodology",
+      "kind": "topic",
+      "label": "Application development",
+      "order": 8,
+      "source_text": "Application development",
+      "description": "Developing the IoT application.",
+      "synonyms": [
+        "iot application development"
+      ],
+      "context_words": [
+        "application development"
+      ]
+    },
+    {
+      "id": "2301306A/u2",
+      "parent": "2301306A",
+      "kind": "unit",
+      "label": "IoT Physical Devices and Programming Raspberry Pi with Python",
+      "order": 1,
+      "source_text": "Unit II IoT Physical Devices and Programming (07 hrs) CO2",
+      "unit_meta": {
+        "number": 2,
+        "hours": 7,
+        "course_outcomes": [
+          "CO2"
+        ]
+      },
+      "context_words": [
+        "raspberry",
+        "device",
+        "python"
+      ]
+    },
+    {
+      "id": "2301306A/u2/building-blocks",
+      "parent": "2301306A/u2",
+      "kind": "topic",
+      "label": "Basic building blocks of an IoT device",
+      "order": 0,
+      "source_text": "Basic building blocks of IoT device",
+      "description": "Sensing, actuation, communication and analysis/processing.",
+      "key_points": [
+        "sensing",
+        "actuation",
+        "communication",
+        "processing"
+      ],
+      "synonyms": [
+        "building blocks of iot device"
+      ],
+      "context_words": [
+        "building block"
+      ]
+    },
+    {
+      "id": "2301306A/u2/sensors-actuators",
+      "parent": "2301306A/u2",
+      "kind": "topic",
+      "label": "Sensors and actuators",
+      "order": 1,
+      "source_text": "Sensors and actuators",
+      "description": "Devices that measure the world and devices that act on it.",
+      "key_points": [
+        "types of sensors",
+        "types of actuators",
+        "analog vs digital sensors"
+      ],
+      "synonyms": [
+        "sensors",
+        "actuators",
+        "sensors and actuators"
+      ],
+      "context_words": [
+        "sensor",
+        "actuator"
+      ]
+    },
+    {
+      "id": "2301306A/u2/connectivity",
+      "parent": "2301306A/u2",
+      "kind": "topic",
+      "label": "Connectivity technologies",
+      "order": 2,
+      "source_text": "Connectivity technologies",
+      "description": "How devices connect: Wi-Fi, Bluetooth, cellular and more.",
+      "key_points": [
+        "wi-fi",
+        "bluetooth",
+        "cellular",
+        "zigbee"
+      ],
+      "synonyms": [
+        "iot connectivity"
+      ],
+      "context_words": [
+        "connectivity",
+        "wi-fi",
+        "bluetooth"
+      ]
+    },
+    {
+      "id": "2301306A/u2/raspberry-pi",
+      "parent": "2301306A/u2",
+      "kind": "topic",
+      "label": "Raspberry Pi",
+      "order": 3,
+      "source_text": "Exemplary device: Raspberry Pi",
+      "description": "The Raspberry Pi board and its specifications.",
+      "key_points": [
+        "board specifications",
+        "raspbian",
+        "gpio"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301306A/u2/rpi-interfaces",
+          "how": "the board itself, not its interfaces"
+        }
+      ],
+      "synonyms": [
+        "raspberry pi"
+      ],
+      "acronyms": [
+        "RPi"
+      ],
+      "context_words": [
+        "raspberry pi"
+      ]
+    },
+    {
+      "id": "2301306A/u2/rpi-interfaces",
+      "parent": "2301306A/u2",
+      "kind": "topic",
+      "label": "Raspberry Pi interfaces",
+      "order": 4,
+      "source_text": "Raspberry Pi interfaces",
+      "description": "Serial, SPI and I2C interfaces on the Pi.",
+      "key_points": [
+        "serial",
+        "spi",
+        "i2c",
+        "gpio pins"
+      ],
+      "synonyms": [
+        "raspberry pi interfaces"
+      ],
+      "acronyms": [
+        "SPI",
+        "I2C",
+        "GPIO"
+      ],
+      "context_words": [
+        "interface",
+        "spi",
+        "i2c"
+      ]
+    },
+    {
+      "id": "2301306A/u2/other-devices",
+      "parent": "2301306A/u2",
+      "kind": "topic",
+      "label": "BeagleBoard and other IoT devices",
+      "order": 5,
+      "source_text": "Beagle board and Other IoT Devices",
+      "description": "Other IoT boards such as BeagleBone, Arduino and pcDuino.",
+      "key_points": [
+        "beaglebone",
+        "arduino",
+        "pcduino"
+      ],
+      "synonyms": [
+        "beagle board",
+        "other iot devices"
+      ],
+      "context_words": [
+        "beagle",
+        "arduino"
+      ]
+    },
+    {
+      "id": "2301306A/u2/programming",
+      "parent": "2301306A/u2",
+      "kind": "heading",
+      "label": "Programming Raspberry Pi with Python",
+      "order": 6,
+      "source_text": "Programming Raspberry Pi with Python:",
+      "description": "Python programs for Raspberry Pi I/O, sensors, displays and cloud.",
+      "synonyms": [
+        "raspberry pi python programming"
+      ],
+      "context_words": [
+        "python",
+        "program"
+      ]
+    },
+    {
+      "id": "2301306A/u2/programming/digital-analog-io",
+      "parent": "2301306A/u2/programming",
+      "kind": "topic",
+      "label": "Digital and analog input/output",
+      "order": 0,
+      "source_text": "Working with digital and analog input output",
+      "description": "Reading switches, driving LEDs and using ADCs.",
+      "key_points": [
+        "gpio read and write",
+        "led and switch",
+        "adc"
+      ],
+      "synonyms": [
+        "gpio programming"
+      ],
+      "context_words": [
+        "digital",
+        "analog",
+        "led",
+        "switch"
+      ]
+    },
+    {
+      "id": "2301306A/u2/programming/sensor-data",
+      "parent": "2301306A/u2/programming",
+      "kind": "topic",
+      "label": "Retrieving data with sensors",
+      "order": 1,
+      "source_text": "Retrieving data from the real world with sensors",
+      "description": "Reading real-world data from sensors in Python.",
+      "key_points": [
+        "reading sensor values",
+        "polling"
+      ],
+      "synonyms": [
+        "reading sensors"
+      ],
+      "context_words": [
+        "retrieving",
+        "real world"
+      ]
+    },
+    {
+      "id": "2301306A/u2/programming/accelerometers",
+      "parent": "2301306A/u2/programming",
+      "kind": "topic",
+      "label": "Working with accelerometers",
+      "order": 2,
+      "source_text": "Working with accelerators",
+      "description": "Reading motion data from accelerometers.",
+      "key_points": [
+        "acceleration axes",
+        "i2c accelerometer"
+      ],
+      "synonyms": [
+        "accelerometer"
+      ],
+      "context_words": [
+        "accelerometer",
+        "accelerator",
+        "motion"
+      ],
+      "notes": "Printed 'accelerators'; likely accelerometers."
+    },
+    {
+      "id": "2301306A/u2/programming/temperature-sensor",
+      "parent": "2301306A/u2/programming",
+      "kind": "topic",
+      "label": "Temperature sensor",
+      "order": 3,
+      "source_text": "Temperature sensor",
+      "description": "Reading temperature sensors such as DHT11/DS18B20.",
+      "key_points": [
+        "dht11",
+        "ds18b20"
+      ],
+      "synonyms": [
+        "temperature sensor"
+      ],
+      "context_words": [
+        "temperature"
+      ]
+    },
+    {
+      "id": "2301306A/u2/programming/lcd-servo",
+      "parent": "2301306A/u2/programming",
+      "kind": "topic",
+      "label": "Displaying information and acting with LCD and servo motors",
+      "order": 4,
+      "source_text": "Displaying information and performing action using LCD and Servo motors",
+      "description": "Output to LCD displays and controlling servo motors.",
+      "key_points": [
+        "lcd display",
+        "servo motor",
+        "pwm"
+      ],
+      "synonyms": [
+        "lcd with raspberry pi",
+        "servo motor control"
+      ],
+      "acronyms": [
+        "PWM"
+      ],
+      "context_words": [
+        "lcd",
+        "servo"
+      ]
+    },
+    {
+      "id": "2301306A/u2/programming/cloud-publishing",
+      "parent": "2301306A/u2/programming",
+      "kind": "topic",
+      "label": "Publishing data to the cloud with PubNub",
+      "order": 5,
+      "source_text": "Working with cloud publishing data to the cloud-Python pub nub",
+      "description": "Sending sensor data to the cloud via PubNub.",
+      "key_points": [
+        "pubnub",
+        "publish-subscribe"
+      ],
+      "synonyms": [
+        "pubnub",
+        "publishing data to cloud"
+      ],
+      "context_words": [
+        "pubnub",
+        "publish"
+      ]
+    },
+    {
+      "id": "2301306A/u3",
+      "parent": "2301306A",
+      "kind": "unit",
+      "label": "IoT Protocols",
+      "order": 2,
+      "source_text": "Unit III IoT Protocols (07 hrs) CO3",
+      "unit_meta": {
+        "number": 3,
+        "hours": 7,
+        "course_outcomes": [
+          "CO3"
+        ]
+      },
+      "context_words": [
+        "zigbee",
+        "lora",
+        "modbus",
+        "m2m",
+        "standard"
+      ]
+    },
+    {
+      "id": "2301306A/u3/four-pillars",
+      "parent": "2301306A/u3",
+      "kind": "heading",
+      "label": "Four pillars of IoT",
+      "order": 0,
+      "source_text": "Four pillars of IoT:",
+      "description": "The four technology pillars IoT grew from.",
+      "synonyms": [
+        "four pillars of iot"
+      ],
+      "context_words": [
+        "pillar"
+      ]
+    },
+    {
+      "id": "2301306A/u3/four-pillars/m2m",
+      "parent": "2301306A/u3/four-pillars",
+      "kind": "topic",
+      "label": "M2M",
+      "order": 0,
+      "source_text": "M2M",
+      "description": "Machine-to-machine communication.",
+      "key_points": [
+        "machine to machine",
+        "m2m vs iot"
+      ],
+      "synonyms": [
+        "machine to machine"
+      ],
+      "acronyms": [
+        "M2M"
+      ],
+      "context_words": [
+        "m2m",
+        "machine"
+      ]
+    },
+    {
+      "id": "2301306A/u3/four-pillars/wsn",
+      "parent": "2301306A/u3/four-pillars",
+      "kind": "topic",
+      "label": "Wireless sensor networks",
+      "order": 1,
+      "source_text": "WSN",
+      "description": "Networks of wireless sensor nodes.",
+      "key_points": [
+        "sensor nodes",
+        "sink",
+        "multi-hop"
+      ],
+      "synonyms": [
+        "wireless sensor network"
+      ],
+      "acronyms": [
+        "WSN"
+      ],
+      "context_words": [
+        "wsn",
+        "sensor network"
+      ]
+    },
+    {
+      "id": "2301306A/u3/four-pillars/scada",
+      "parent": "2301306A/u3/four-pillars",
+      "kind": "topic",
+      "label": "SCADA",
+      "order": 2,
+      "source_text": "SCADA",
+      "description": "Supervisory control and data acquisition in industry.",
+      "key_points": [
+        "rtu",
+        "plc",
+        "hmi"
+      ],
+      "synonyms": [
+        "supervisory control and data acquisition"
+      ],
+      "acronyms": [
+        "SCADA"
+      ],
+      "context_words": [
+        "scada"
+      ]
+    },
+    {
+      "id": "2301306A/u3/four-pillars/rfid",
+      "parent": "2301306A/u3/four-pillars",
+      "kind": "topic",
+      "label": "RFID",
+      "order": 3,
+      "source_text": "RFID",
+      "description": "Radio-frequency identification with tags and readers.",
+      "key_points": [
+        "tags and readers",
+        "passive and active tags"
+      ],
+      "synonyms": [
+        "radio frequency identification"
+      ],
+      "acronyms": [
+        "RFID"
+      ],
+      "context_words": [
+        "rfid",
+        "tag"
+      ]
+    },
+    {
+      "id": "2301306A/u3/standardization",
+      "parent": "2301306A/u3",
+      "kind": "heading",
+      "label": "Protocol standardization for IoT",
+      "order": 1,
+      "source_text": "Protocol Standardization for IoT:",
+      "description": "Standardization problems and unified data standards.",
+      "synonyms": [
+        "iot standardization"
+      ],
+      "context_words": [
+        "standard"
+      ]
+    },
+    {
+      "id": "2301306A/u3/standardization/issues",
+      "parent": "2301306A/u3/standardization",
+      "kind": "topic",
+      "label": "Issues with IoT standardization",
+      "order": 0,
+      "source_text": "Issues with",
+      "description": "Why IoT standardization is hard.",
+      "key_points": [
+        "fragmented standards",
+        "interoperability"
+      ],
+      "synonyms": [
+        "standardization issues"
+      ],
+      "context_words": [
+        "issues",
+        "standardization"
+      ]
+    },
+    {
+      "id": "2301306A/u3/standardization/unified-data-standards",
+      "parent": "2301306A/u3/standardization",
+      "kind": "topic",
+      "label": "Unified data standards",
+      "order": 1,
+      "source_text": "Unified Data Standards",
+      "description": "Common data formats and platforms across IoT.",
+      "synonyms": [
+        "unified data standards"
+      ],
+      "context_words": [
+        "unified",
+        "data standard"
+      ]
+    },
+    {
+      "id": "2301306A/u3/protocols",
+      "parent": "2301306A/u3",
+      "kind": "heading",
+      "label": "IoT protocols",
+      "order": 2,
+      "source_text": "IoT Protocols:",
+      "description": "Specific IoT communication protocols.",
+      "synonyms": [
+        "iot protocols"
+      ],
+      "context_words": [
+        "protocol"
+      ]
+    },
+    {
+      "id": "2301306A/u3/protocols/ieee-802-15-4",
+      "parent": "2301306A/u3/protocols",
+      "kind": "topic",
+      "label": "IEEE 802.15.4",
+      "order": 0,
+      "source_text": "IEEE 802.15.4",
+      "description": "Low-rate wireless PAN standard underlying Zigbee and 6LoWPAN.",
+      "key_points": [
+        "low rate wpan",
+        "phy and mac layers"
+      ],
+      "synonyms": [
+        "ieee 802.15.4"
+      ],
+      "acronyms": [
+        "LR-WPAN"
+      ],
+      "context_words": [
+        "802.15.4"
+      ]
+    },
+    {
+      "id": "2301306A/u3/protocols/bacnet",
+      "parent": "2301306A/u3/protocols",
+      "kind": "topic",
+      "label": "BACnet",
+      "order": 1,
+      "source_text": "BACNet",
+      "description": "Building automation and control networks protocol.",
+      "key_points": [
+        "building automation",
+        "objects and services"
+      ],
+      "synonyms": [
+        "bacnet"
+      ],
+      "context_words": [
+        "bacnet",
+        "building"
+      ]
+    },
+    {
+      "id": "2301306A/u3/protocols/modbus",
+      "parent": "2301306A/u3/protocols",
+      "kind": "topic",
+      "label": "Modbus",
+      "order": 2,
+      "source_text": "Modbus",
+      "description": "Master-slave industrial serial protocol.",
+      "key_points": [
+        "master slave",
+        "rtu and tcp modes",
+        "registers"
+      ],
+      "synonyms": [
+        "modbus"
+      ],
+      "context_words": [
+        "modbus"
+      ]
+    },
+    {
+      "id": "2301306A/u3/protocols/knx",
+      "parent": "2301306A/u3/protocols",
+      "kind": "topic",
+      "label": "KNX",
+      "order": 3,
+      "source_text": "KNX",
+      "description": "Building and home automation standard.",
+      "key_points": [
+        "home and building automation"
+      ],
+      "synonyms": [
+        "knx"
+      ],
+      "context_words": [
+        "knx"
+      ]
+    },
+    {
+      "id": "2301306A/u3/protocols/zigbee",
+      "parent": "2301306A/u3/protocols",
+      "kind": "topic",
+      "label": "Zigbee",
+      "order": 4,
+      "source_text": "Zigbee",
+      "description": "Low-power mesh networking on IEEE 802.15.4.",
+      "key_points": [
+        "coordinator router end device",
+        "mesh",
+        "low power"
+      ],
+      "synonyms": [
+        "zigbee"
+      ],
+      "context_words": [
+        "zigbee"
+      ]
+    },
+    {
+      "id": "2301306A/u3/protocols/6lowpan",
+      "parent": "2301306A/u3/protocols",
+      "kind": "topic",
+      "label": "6LoWPAN",
+      "order": 5,
+      "source_text": "6LoWPAN",
+      "description": "IPv6 over low-power wireless networks with header compression.",
+      "key_points": [
+        "ipv6 over 802.15.4",
+        "header compression",
+        "fragmentation"
+      ],
+      "synonyms": [
+        "6lowpan"
+      ],
+      "context_words": [
+        "6lowpan",
+        "ipv6"
+      ]
+    },
+    {
+      "id": "2301306A/u3/protocols/lora",
+      "parent": "2301306A/u3/protocols",
+      "kind": "topic",
+      "label": "LoRa",
+      "order": 6,
+      "source_text": "LoRa",
+      "description": "Long-range low-power wide-area networking (LoRaWAN).",
+      "key_points": [
+        "long range",
+        "low power wide area",
+        "lorawan"
+      ],
+      "synonyms": [
+        "lora",
+        "lorawan"
+      ],
+      "acronyms": [
+        "LPWAN"
+      ],
+      "context_words": [
+        "lora",
+        "long range"
+      ]
+    },
+    {
+      "id": "2301306A/u4",
+      "parent": "2301306A",
+      "kind": "unit",
+      "label": "IoT Security",
+      "order": 3,
+      "source_text": "Unit IV IoT Security (06 hrs) CO4",
+      "unit_meta": {
+        "number": 4,
+        "hours": 6,
+        "course_outcomes": [
+          "CO4"
+        ]
+      },
+      "context_words": [
+        "security",
+        "secure"
+      ]
+    },
+    {
+      "id": "2301306A/u4/vulnerabilities",
+      "parent": "2301306A/u4",
+      "kind": "topic",
+      "label": "Vulnerabilities of IoT",
+      "order": 0,
+      "source_text": "Vulnerabilities of IoT",
+      "description": "Weaknesses of IoT devices and networks.",
+      "key_points": [
+        "weak authentication",
+        "insecure firmware",
+        "unencrypted traffic"
+      ],
+      "synonyms": [
+        "iot vulnerabilities"
+      ],
+      "context_words": [
+        "vulnerab"
+      ]
+    },
+    {
+      "id": "2301306A/u4/requirements",
+      "parent": "2301306A/u4",
+      "kind": "topic",
+      "label": "Security requirements",
+      "order": 1,
+      "source_text": "Security Requirements",
+      "description": "What secure IoT must provide.",
+      "key_points": [
+        "confidentiality",
+        "integrity",
+        "authentication",
+        "availability"
+      ],
+      "synonyms": [
+        "iot security requirements"
+      ],
+      "context_words": [
+        "requirement"
+      ]
+    },
+    {
+      "id": "2301306A/u4/challenges",
+      "parent": "2301306A/u4",
+      "kind": "topic",
+      "label": "Challenges for secure IoT",
+      "order": 2,
+      "source_text": "Challenges for Secure IoT",
+      "description": "Why securing IoT is difficult.",
+      "key_points": [
+        "constrained devices",
+        "scale",
+        "heterogeneity"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301306A/u1/issues",
+          "how": "security challenges specifically"
+        }
+      ],
+      "synonyms": [
+        "iot security challenges"
+      ],
+      "context_words": [
+        "challenge"
+      ]
+    },
+    {
+      "id": "2301306A/u4/threat-modeling",
+      "parent": "2301306A/u4",
+      "kind": "topic",
+      "label": "Threat modeling",
+      "order": 3,
+      "source_text": "Threat Modeling",
+      "description": "Identifying assets, threats and mitigations.",
+      "key_points": [
+        "stride",
+        "attack surface",
+        "assets"
+      ],
+      "synonyms": [
+        "threat modelling",
+        "threat model"
+      ],
+      "acronyms": [
+        "STRIDE"
+      ],
+      "context_words": [
+        "threat"
+      ]
+    },
+    {
+      "id": "2301306A/u4/key-elements",
+      "parent": "2301306A/u4",
+      "kind": "heading",
+      "label": "Key elements of IoT security",
+      "order": 4,
+      "source_text": "Key elements of IoT Security:",
+      "description": "The core security mechanisms for IoT.",
+      "synonyms": [
+        "elements of iot security"
+      ],
+      "context_words": [
+        "element"
+      ]
+    },
+    {
+      "id": "2301306A/u4/key-elements/identity",
+      "parent": "2301306A/u4/key-elements",
+      "kind": "topic",
+      "label": "Identity establishment",
+      "order": 0,
+      "source_text": "Identity establishment",
+      "description": "Establishing device and user identities.",
+      "key_points": [
+        "device identity",
+        "certificates"
+      ],
+      "synonyms": [
+        "identity management"
+      ],
+      "context_words": [
+        "identity"
+      ]
+    },
+    {
+      "id": "2301306A/u4/key-elements/access-control",
+      "parent": "2301306A/u4/key-elements",
+      "kind": "topic",
+      "label": "Access control",
+      "order": 1,
+      "source_text": "Access control",
+      "description": "Controlling who may access which resources.",
+      "key_points": [
+        "authorization",
+        "role based access"
+      ],
+      "synonyms": [
+        "access control"
+      ],
+      "acronyms": [
+        "RBAC"
+      ],
+      "context_words": [
+        "access control"
+      ]
+    },
+    {
+      "id": "2301306A/u4/key-elements/data-message",
+      "parent": "2301306A/u4/key-elements",
+      "kind": "topic",
+      "label": "Data and message security",
+      "order": 2,
+      "source_text": "Data and message security",
+      "description": "Protecting data in transit and at rest.",
+      "key_points": [
+        "encryption",
+        "integrity checks"
+      ],
+      "synonyms": [
+        "data security",
+        "message security"
+      ],
+      "context_words": [
+        "data",
+        "message",
+        "encryption"
+      ]
+    },
+    {
+      "id": "2301306A/u4/key-elements/non-repudiation",
+      "parent": "2301306A/u4/key-elements",
+      "kind": "topic",
+      "label": "Non-repudiation",
+      "order": 3,
+      "source_text": "Non-repudiation",
+      "description": "Preventing parties denying their actions.",
+      "key_points": [
+        "digital signatures",
+        "audit logs"
+      ],
+      "synonyms": [
+        "non repudiation"
+      ],
+      "context_words": [
+        "repudiation"
+      ],
+      "split": {
+        "from": "Non-repudiation and availability",
+        "by": "claude",
+        "reason": "The line joins independently examinable topics."
+      }
+    },
+    {
+      "id": "2301306A/u4/key-elements/availability",
+      "parent": "2301306A/u4/key-elements",
+      "kind": "topic",
+      "label": "Availability",
+      "order": 4,
+      "source_text": "availability",
+      "description": "Keeping services available despite attacks.",
+      "key_points": [
+        "dos resistance",
+        "redundancy"
+      ],
+      "synonyms": [
+        "availability"
+      ],
+      "context_words": [
+        "availability",
+        "dos"
+      ],
+      "split": {
+        "from": "Non-repudiation and availability",
+        "by": "claude",
+        "reason": "The line joins independently examinable topics."
+      }
+    },
+    {
+      "id": "2301306A/u4/security-model",
+      "parent": "2301306A/u4",
+      "kind": "topic",
+      "label": "Security model for IoT",
+      "order": 5,
+      "source_text": "Security model for IoT",
+      "description": "An overall security model for IoT systems.",
+      "key_points": [
+        "layered security model"
+      ],
+      "synonyms": [
+        "iot security model"
+      ],
+      "context_words": [
+        "model"
+      ]
+    },
+    {
+      "id": "2301306A/u5",
+      "parent": "2301306A",
+      "kind": "unit",
+      "label": "IoT Physical Servers and Cloud Offerings",
+      "order": 4,
+      "source_text": "Unit V IoT Physical servers and Cloud offering (07 hrs) CO5",
+      "unit_meta": {
+        "number": 5,
+        "hours": 7,
+        "course_outcomes": [
+          "CO5"
+        ]
+      },
+      "context_words": [
+        "cloud",
+        "server"
+      ]
+    },
+    {
+      "id": "2301306A/u5/cloud-storage-models",
+      "parent": "2301306A/u5",
+      "kind": "topic",
+      "label": "Introduction to cloud storage models",
+      "order": 0,
+      "source_text": "Introduction to Cloud Storage Models",
+      "description": "Cloud storage models and their use for IoT data.",
+      "key_points": [
+        "storage models",
+        "iaas paas saas"
+      ],
+      "synonyms": [
+        "cloud storage models"
+      ],
+      "context_words": [
+        "storage"
+      ]
+    },
+    {
+      "id": "2301306A/u5/communication-api",
+      "parent": "2301306A/u5",
+      "kind": "topic",
+      "label": "Communication APIs (cloud)",
+      "order": 1,
+      "source_text": "Communication API",
+      "description": "APIs for communicating with cloud IoT services.",
+      "key_points": [
+        "cloud apis"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301306A/u1/logical-design/communication-apis",
+          "how": "cloud service APIs, not design-level API types"
+        }
+      ],
+      "synonyms": [
+        "cloud communication api"
+      ],
+      "context_words": [
+        "cloud",
+        "api"
+      ]
+    },
+    {
+      "id": "2301306A/u5/wamp",
+      "parent": "2301306A/u5",
+      "kind": "topic",
+      "label": "WAMP: AutobahnPython for IoT",
+      "order": 2,
+      "source_text": "WAMP: AutoBahn for IoT",
+      "description": "Web Application Messaging Protocol with Autobahn.",
+      "key_points": [
+        "rpc and pub-sub",
+        "router",
+        "autobahn"
+      ],
+      "synonyms": [
+        "wamp",
+        "autobahn"
+      ],
+      "acronyms": [
+        "WAMP"
+      ],
+      "context_words": [
+        "wamp",
+        "autobahn"
+      ]
+    },
+    {
+      "id": "2301306A/u5/xively",
+      "parent": "2301306A/u5",
+      "kind": "topic",
+      "label": "Xively cloud for IoT",
+      "order": 3,
+      "source_text": "Xively Cloud for IoT",
+      "description": "Xively platform for IoT device data.",
+      "key_points": [
+        "feeds",
+        "datastreams"
+      ],
+      "synonyms": [
+        "xively"
+      ],
+      "context_words": [
+        "xively"
+      ]
+    },
+    {
+      "id": "2301306A/u5/django",
+      "parent": "2301306A/u5",
+      "kind": "topic",
+      "label": "Python web application framework: Django",
+      "order": 4,
+      "source_text": "Python Web Application Framework: Djanjo",
+      "description": "Building IoT web apps with Django.",
+      "key_points": [
+        "model view template",
+        "django project and app"
+      ],
+      "synonyms": [
+        "django"
+      ],
+      "acronyms": [
+        "MVT"
+      ],
+      "context_words": [
+        "django"
+      ]
+    },
+    {
+      "id": "2301306A/u5/aws",
+      "parent": "2301306A/u5",
+      "kind": "topic",
+      "label": "Amazon Web Services for IoT",
+      "order": 5,
+      "source_text": "Amzon Web Services for IoT",
+      "description": "AWS services used for IoT.",
+      "key_points": [
+        "ec2",
+        "s3",
+        "dynamodb",
+        "aws iot"
+      ],
+      "synonyms": [
+        "aws for iot",
+        "amazon web services"
+      ],
+      "acronyms": [
+        "AWS"
+      ],
+      "context_words": [
+        "aws",
+        "amazon"
+      ]
+    },
+    {
+      "id": "2301306A/u5/skynet",
+      "parent": "2301306A/u5",
+      "kind": "topic",
+      "label": "SkyNet IoT messaging platform",
+      "order": 6,
+      "source_text": "SkyNet IoT Messaging Platform",
+      "description": "Open messaging platform for IoT devices.",
+      "key_points": [
+        "device registration",
+        "messaging api"
+      ],
+      "synonyms": [
+        "skynet"
+      ],
+      "context_words": [
+        "skynet"
+      ]
+    }
+  ],
+  "cross_links": [
+    {
+      "a": "2301306A/u4/key-elements/data-message",
+      "b": "2301306A/u4/requirements",
+      "strength": "related",
+      "reason": "Data security mechanisms meet confidentiality and integrity requirements.",
+      "source": "general",
+      "confidence": 0.55,
+      "by": "claude"
+    }
+  ],
+  "provenance": {
+    "generated_by": "Claude (Opus 5.5), from the official syllabus PDF",
+    "generated_on": "2026-09-24",
+    "source_file": "syllabus/raw/KKW-AIDS-2023/1781760060_ty-btech-2023-pattern-com_copy.pdf",
+    "extracted_text": "syllabus/raw/KKW-AIDS-2023/extracted/2301306A.txt",
+    "methodology_version": "1.0"
+  },
+  "review": {
+    "status": "validated",
+    "notes": "Physical and logical design items in Unit I are nested following Bahga & Madisetti. 'Service specifications level specification' is printed garbled (likely service specification plus IoT level specification). 'Working with accelerators' likely means accelerometers. 'IoT Protocols' appears in Unit I (physical design) and as Unit III."
+  }
+}

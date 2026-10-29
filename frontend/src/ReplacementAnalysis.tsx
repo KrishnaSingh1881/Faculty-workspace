@@ -1,0 +1,11 @@
+import React, { useEffect, useState } from 'react'
+
+export function ReplacementAnalysis({paperId, onApply}:{paperId:number;onApply:(sourceId:number,candidateId:number)=>Promise<void>}){
+  const [report,setReport]=useState<any>(null)
+  const [error,setError]=useState('')
+  const [busy,setBusy]=useState(false)
+  useEffect(()=>{let active=true;const load=()=>fetch(`/api/papers/${paperId}/replacement-analysis`).then(async r=>{if(!r.ok)throw new Error((await r.json()).detail||r.statusText);return r.json()}).then(value=>{if(active){setReport(value);setError('')}}).catch(e=>{if(active)setError(String(e))});void load();const timer=setInterval(()=>void load(),5000);return()=>{active=false;clearInterval(timer)}},[paperId])
+  if(error)return <p className="error">Replacement analysis: {error}</p>
+  if(!report)return <p className="hint">Loading replacement analysis…</p>
+  return <div className="preview-card"><h3>Replacement suggestions</h3><p className="hint">Source: {report.source_question.paper_title} · Q{report.source_question.number} · Unit {report.source_question.unit} · {report.source_question.marks} marks. Before: {report.coverage_before.covered_topics} covered topics.</p><p className="hint">{report.source_changed?'The source changed after drafting. Generate new suggestions before applying.':`Requested difficulty: ${report.requested_difficulty}. Difficulty is not measured.`}</p>{report.candidates.map((candidate:any)=><div className="evidence-item" key={candidate.id}><strong>Candidate #{candidate.id} · {candidate.number}</strong><p>{candidate.text}</p><p className="hint">After: {candidate.coverage_after.covered_topics} topics · Added {candidate.coverage_after.added_topic_ids.join(', ')||'none'} · Lost {candidate.coverage_after.lost_topic_ids.join(', ')||'none'}</p><p className="hint">Screening {candidate.screening.status} · A {candidate.screening.A} · B {candidate.screening.B} · C {candidate.screening.C} · review {candidate.screening.review}</p><button className="subtle" disabled={busy||report.source_changed||candidate.screening.status!=='complete'||!candidate.confirmed} onClick={async()=>{setBusy(true);try{await onApply(report.source_question.id,candidate.id)}catch(e){setError(String(e))}finally{setBusy(false)}}}>Apply to source question</button></div>)}<p className="hint">{report.note}</p></div>
+}

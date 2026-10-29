@@ -1,0 +1,2261 @@
+{
+  "schema_version": "1.0",
+  "syllabus_version": "KKW-AIDS-2023",
+  "course": {
+    "code": "2301202",
+    "title": "Operating Systems",
+    "year": "SY",
+    "semester": "III",
+    "course_type": "PCC",
+    "prerequisites": [],
+    "unit_count": 5,
+    "textbooks": [
+      "D. M. Dhamdhere, Systems Programming and Operating Systems, Tata McGraw-Hill",
+      "Silberschatz, Galvin, Gagne, Operating System Concepts, 9th ed., Wiley",
+      "William Stallings, Operating Systems: Internals and Design Principles, 8th ed., Prentice Hall"
+    ],
+    "reference_books": [
+      "John Donovan, Systems Programming, McGraw Hill",
+      "Adelstein and Lubanovic, Linux System Administration, O'Reilly",
+      "Harvey M. Deitel, Operating Systems, Prentice Hall"
+    ],
+    "course_outcomes": [
+      {
+        "id": "CO1",
+        "text": "Illustrate the concept of systems software",
+        "bloom_level": "L2_UNDERSTAND"
+      },
+      {
+        "id": "CO2",
+        "text": "Illustrate the concept of process scheduling algorithms to solve scheduling problems",
+        "bloom_level": "L2_UNDERSTAND"
+      },
+      {
+        "id": "CO3",
+        "text": "Explain the concepts of deadlock and illustrate the techniques to detect, prevent and avoid the deadlock",
+        "bloom_level": "L2_UNDERSTAND"
+      },
+      {
+        "id": "CO4",
+        "text": "Demonstrate the use of page replacement algorithms for memory management",
+        "bloom_level": "L2_UNDERSTAND"
+      },
+      {
+        "id": "CO5",
+        "text": "Explain the concept of I/O management techniques",
+        "bloom_level": "L2_UNDERSTAND"
+      },
+      {
+        "id": "CO6",
+        "text": "Demonstrate the use of Linux commands and basic shell utilities",
+        "bloom_level": "L2_UNDERSTAND"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "2301202",
+      "parent": null,
+      "kind": "course",
+      "label": "Operating Systems",
+      "order": 0,
+      "source_text": "2301202"
+    },
+    {
+      "id": "2301202/u1",
+      "parent": "2301202",
+      "kind": "unit",
+      "label": "Introduction to systems programming",
+      "order": 0,
+      "source_text": "Unit I Introduction to systems programming (07 Hrs) CO1",
+      "unit_meta": {
+        "number": 1,
+        "hours": 7,
+        "course_outcomes": [
+          "CO1"
+        ]
+      }
+    },
+    {
+      "id": "2301202/u1/introduction",
+      "parent": "2301202/u1",
+      "kind": "topic",
+      "label": "Introduction to system software",
+      "order": 0,
+      "source_text": "Introduction",
+      "description": "What system software and systems programming are, and how they differ from application software.",
+      "synonyms": [
+        "systems programming",
+        "system software"
+      ],
+      "context_words": [
+        "system software",
+        "systems programming"
+      ]
+    },
+    {
+      "id": "2301202/u1/components",
+      "parent": "2301202/u1",
+      "kind": "topic",
+      "label": "Components of system software",
+      "order": 1,
+      "source_text": "Components of System Software",
+      "description": "The pieces that make up system software and how they cooperate.",
+      "key_points": [
+        "language processors",
+        "program generation and execution"
+      ],
+      "synonyms": [
+        "components of system software"
+      ],
+      "context_words": [
+        "component"
+      ]
+    },
+    {
+      "id": "2301202/u1/text-editors",
+      "parent": "2301202/u1",
+      "kind": "topic",
+      "label": "Text editors",
+      "order": 2,
+      "source_text": "Text editors",
+      "description": "Line, stream and screen editors and their structure.",
+      "key_points": [
+        "line editor",
+        "screen editor",
+        "editor structure"
+      ],
+      "synonyms": [
+        "text editor",
+        "editors"
+      ],
+      "context_words": [
+        "editor"
+      ]
+    },
+    {
+      "id": "2301202/u1/loaders",
+      "parent": "2301202/u1",
+      "kind": "topic",
+      "label": "Loaders",
+      "order": 3,
+      "source_text": "Loaders",
+      "description": "Programs that load object code into memory; absolute and relocating loaders.",
+      "key_points": [
+        "absolute loader",
+        "relocating loader",
+        "bootstrap loader"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u1/linkers",
+          "how": "places the program in memory; linkers combine object modules"
+        }
+      ],
+      "synonyms": [
+        "loader"
+      ],
+      "context_words": [
+        "load",
+        "loader"
+      ]
+    },
+    {
+      "id": "2301202/u1/linkers",
+      "parent": "2301202/u1",
+      "kind": "topic",
+      "label": "Linkers",
+      "order": 4,
+      "source_text": "Linkers",
+      "description": "Combining object modules and resolving external references; relocation.",
+      "key_points": [
+        "relocation",
+        "external references",
+        "static vs dynamic linking"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u1/loaders",
+          "how": "combines modules and resolves references; loaders place them in memory"
+        }
+      ],
+      "synonyms": [
+        "linker",
+        "linking"
+      ],
+      "context_words": [
+        "link",
+        "linker"
+      ]
+    },
+    {
+      "id": "2301202/u1/assemblers-overview",
+      "parent": "2301202/u1",
+      "kind": "topic",
+      "label": "Assemblers (as system software)",
+      "order": 5,
+      "source_text": "Assemblers",
+      "description": "The assembler's role among system software components, at overview level.",
+      "distinguish_from": [
+        {
+          "node": "2301202/u1/assemblers",
+          "how": "the assembler's place among system software, not its design"
+        }
+      ],
+      "synonyms": [
+        "assembler"
+      ],
+      "context_words": [
+        "assembler",
+        "system software"
+      ]
+    },
+    {
+      "id": "2301202/u1/macro-processors",
+      "parent": "2301202/u1",
+      "kind": "topic",
+      "label": "Macro processors",
+      "order": 6,
+      "source_text": "Macro processors",
+      "description": "Macro definition, macro calls and macro expansion.",
+      "key_points": [
+        "macro definition",
+        "macro call",
+        "macro expansion"
+      ],
+      "synonyms": [
+        "macro processor",
+        "macros"
+      ],
+      "scope_terms": [
+        "nested macro calls",
+        "macro expansion"
+      ],
+      "context_words": [
+        "macro"
+      ]
+    },
+    {
+      "id": "2301202/u1/compilers",
+      "parent": "2301202/u1",
+      "kind": "topic",
+      "label": "Compilers",
+      "order": 7,
+      "source_text": "Compilers",
+      "description": "Translating high-level programs into machine code; phases of compilation at overview level.",
+      "key_points": [
+        "phases of compiler",
+        "lexical analysis",
+        "code generation"
+      ],
+      "synonyms": [
+        "compiler"
+      ],
+      "context_words": [
+        "compiler",
+        "compile"
+      ]
+    },
+    {
+      "id": "2301202/u1/debuggers",
+      "parent": "2301202/u1",
+      "kind": "topic",
+      "label": "Debuggers",
+      "order": 8,
+      "source_text": "Debuggers",
+      "description": "Tools that let programmers inspect and control running programs.",
+      "key_points": [
+        "breakpoints",
+        "single stepping"
+      ],
+      "synonyms": [
+        "debugger"
+      ],
+      "context_words": [
+        "debug"
+      ]
+    },
+    {
+      "id": "2301202/u1/assemblers",
+      "parent": "2301202/u1",
+      "kind": "heading",
+      "label": "Assemblers",
+      "order": 9,
+      "source_text": "Assemblers:",
+      "description": "Assembly language and the design of one-pass and two-pass assemblers.",
+      "context_words": [
+        "assembler",
+        "assembly"
+      ]
+    },
+    {
+      "id": "2301202/u1/assemblers/elements-of-alp",
+      "parent": "2301202/u1/assemblers",
+      "kind": "topic",
+      "label": "Elements of assembly language programming",
+      "order": 0,
+      "source_text": "Elements of Assembly Language Programming",
+      "description": "Statement format, mnemonics, operands and the kinds of assembly statements.",
+      "key_points": [
+        "imperative statements",
+        "declaration statements",
+        "assembler directives"
+      ],
+      "synonyms": [
+        "elements of assembly language",
+        "assembly language programming"
+      ],
+      "acronyms": [
+        "ALP"
+      ],
+      "context_words": [
+        "assembly language",
+        "statement"
+      ]
+    },
+    {
+      "id": "2301202/u1/assemblers/simple-assembly-scheme",
+      "parent": "2301202/u1/assemblers",
+      "kind": "topic",
+      "label": "A simple assembly scheme",
+      "order": 1,
+      "source_text": "A Simple Assembly Scheme",
+      "description": "How an assembler translates statements using symbol and opcode tables.",
+      "key_points": [
+        "symbol table",
+        "mnemonic opcode table",
+        "location counter"
+      ],
+      "synonyms": [
+        "simple assembly scheme"
+      ],
+      "context_words": [
+        "scheme"
+      ]
+    },
+    {
+      "id": "2301202/u1/assemblers/pass-structure",
+      "parent": "2301202/u1/assemblers",
+      "kind": "topic",
+      "label": "Pass structure of assemblers",
+      "order": 2,
+      "source_text": "Pass Structure of Assemblers",
+      "description": "Why assemblers use one or two passes, and forward references.",
+      "key_points": [
+        "forward reference",
+        "one pass vs two pass"
+      ],
+      "synonyms": [
+        "pass structure"
+      ],
+      "context_words": [
+        "pass"
+      ]
+    },
+    {
+      "id": "2301202/u1/assemblers/two-pass-assembler",
+      "parent": "2301202/u1/assemblers",
+      "kind": "topic",
+      "label": "Design of two pass assembler",
+      "order": 3,
+      "source_text": "Design of Two Pass Assembler",
+      "description": "Pass I builds the symbol table and intermediate code; pass II generates target code.",
+      "key_points": [
+        "pass i",
+        "pass ii",
+        "intermediate code",
+        "symtab",
+        "littab",
+        "pooltab"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u1/assemblers/single-pass-assembler",
+          "how": "two passes with intermediate code, not backpatching in one pass"
+        }
+      ],
+      "synonyms": [
+        "two pass assembler",
+        "two-pass assembler"
+      ],
+      "scope_terms": [
+        "literal table",
+        "pool table",
+        "intermediate representation"
+      ],
+      "context_words": [
+        "two pass",
+        "pass i",
+        "pass ii"
+      ]
+    },
+    {
+      "id": "2301202/u1/assemblers/single-pass-assembler",
+      "parent": "2301202/u1/assemblers",
+      "kind": "topic",
+      "label": "Single pass assembler",
+      "order": 4,
+      "source_text": "Single pass Assembler",
+      "description": "Assembling in one pass by backpatching forward references.",
+      "key_points": [
+        "backpatching",
+        "table of incomplete instructions"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u1/assemblers/two-pass-assembler",
+          "how": "one pass using backpatching, no intermediate code"
+        }
+      ],
+      "synonyms": [
+        "single pass assembler",
+        "one pass assembler"
+      ],
+      "acronyms": [
+        "TII"
+      ],
+      "context_words": [
+        "single pass",
+        "one pass",
+        "backpatch"
+      ]
+    },
+    {
+      "id": "2301202/u2",
+      "parent": "2301202",
+      "kind": "unit",
+      "label": "Process management",
+      "order": 1,
+      "source_text": "Unit II Process management (08 hrs) CO2",
+      "unit_meta": {
+        "number": 2,
+        "hours": 8,
+        "course_outcomes": [
+          "CO2"
+        ]
+      }
+    },
+    {
+      "id": "2301202/u2/introduction-to-os",
+      "parent": "2301202/u2",
+      "kind": "topic",
+      "label": "Introduction to operating systems",
+      "order": 0,
+      "source_text": "Introduction to Operating Systems",
+      "description": "What an operating system is, its goals and services.",
+      "key_points": [
+        "os services",
+        "system calls",
+        "kernel"
+      ],
+      "synonyms": [
+        "introduction to operating systems",
+        "what is an operating system",
+        "functions of os"
+      ],
+      "acronyms": [
+        "OS"
+      ],
+      "context_words": [
+        "operating system"
+      ]
+    },
+    {
+      "id": "2301202/u2/types-of-os",
+      "parent": "2301202/u2",
+      "kind": "heading",
+      "label": "Types of operating systems",
+      "order": 1,
+      "source_text": "Types of operating systems:",
+      "description": "Batch, time-sharing, network, distributed and real-time operating systems.",
+      "synonyms": [
+        "types of operating systems",
+        "types of os"
+      ],
+      "context_words": [
+        "operating system",
+        "types"
+      ]
+    },
+    {
+      "id": "2301202/u2/types-of-os/batch",
+      "parent": "2301202/u2/types-of-os",
+      "kind": "topic",
+      "label": "Batch operating system",
+      "order": 0,
+      "source_text": "Batch",
+      "description": "Jobs grouped and run without user interaction.",
+      "synonyms": [
+        "batch os",
+        "batch processing system"
+      ],
+      "context_words": [
+        "batch"
+      ]
+    },
+    {
+      "id": "2301202/u2/types-of-os/time-sharing",
+      "parent": "2301202/u2/types-of-os",
+      "kind": "topic",
+      "label": "Time-sharing operating system",
+      "order": 1,
+      "source_text": "Time-sharing",
+      "description": "Many users share the CPU through rapid switching.",
+      "synonyms": [
+        "time sharing os",
+        "multitasking os"
+      ],
+      "context_words": [
+        "time sharing",
+        "time-sharing"
+      ]
+    },
+    {
+      "id": "2301202/u2/types-of-os/network",
+      "parent": "2301202/u2/types-of-os",
+      "kind": "topic",
+      "label": "Network operating system",
+      "order": 2,
+      "source_text": "Network",
+      "description": "OS that provides services to computers over a network.",
+      "synonyms": [
+        "network os",
+        "network operating system"
+      ],
+      "acronyms": [
+        "NOS"
+      ],
+      "context_words": [
+        "network"
+      ]
+    },
+    {
+      "id": "2301202/u2/types-of-os/distributed",
+      "parent": "2301202/u2/types-of-os",
+      "kind": "topic",
+      "label": "Distributed operating system",
+      "order": 3,
+      "source_text": "Distributed",
+      "description": "One OS managing a collection of networked machines as a single system.",
+      "synonyms": [
+        "distributed os",
+        "distributed operating system"
+      ],
+      "context_words": [
+        "distributed"
+      ],
+      "split": {
+        "from": "Distributed and real-time",
+        "by": "claude",
+        "reason": "The line joins independently examinable topics."
+      }
+    },
+    {
+      "id": "2301202/u2/types-of-os/real-time",
+      "parent": "2301202/u2/types-of-os",
+      "kind": "topic",
+      "label": "Real-time operating system",
+      "order": 4,
+      "source_text": "real-time",
+      "description": "OS with guaranteed response times; hard and soft real time.",
+      "key_points": [
+        "hard real time",
+        "soft real time"
+      ],
+      "synonyms": [
+        "real time os",
+        "real-time operating system"
+      ],
+      "acronyms": [
+        "RTOS"
+      ],
+      "context_words": [
+        "real time",
+        "real-time"
+      ],
+      "split": {
+        "from": "Distributed and real-time",
+        "by": "claude",
+        "reason": "The line joins independently examinable topics."
+      }
+    },
+    {
+      "id": "2301202/u2/process",
+      "parent": "2301202/u2",
+      "kind": "heading",
+      "label": "Process",
+      "order": 2,
+      "source_text": "Process:",
+      "description": "The process concept, its control block, states and communication.",
+      "context_words": [
+        "process"
+      ]
+    },
+    {
+      "id": "2301202/u2/process/concept",
+      "parent": "2301202/u2/process",
+      "kind": "topic",
+      "label": "Process concept",
+      "order": 0,
+      "source_text": "Concept",
+      "description": "A program in execution and its parts in memory.",
+      "key_points": [
+        "program vs process",
+        "text data stack heap"
+      ],
+      "synonyms": [
+        "process concept",
+        "what is a process"
+      ],
+      "context_words": [
+        "process",
+        "concept"
+      ]
+    },
+    {
+      "id": "2301202/u2/process/pcb",
+      "parent": "2301202/u2/process",
+      "kind": "topic",
+      "label": "Process control block",
+      "order": 1,
+      "source_text": "Process control block",
+      "description": "The data structure the OS keeps for each process.",
+      "key_points": [
+        "process state",
+        "program counter",
+        "registers",
+        "scheduling information"
+      ],
+      "synonyms": [
+        "process control block"
+      ],
+      "acronyms": [
+        "PCB"
+      ],
+      "context_words": [
+        "pcb",
+        "control block"
+      ]
+    },
+    {
+      "id": "2301202/u2/process/state-diagram",
+      "parent": "2301202/u2/process",
+      "kind": "topic",
+      "label": "Process state diagram",
+      "order": 2,
+      "source_text": "Process state diagram",
+      "description": "States a process moves through and the transitions between them.",
+      "key_points": [
+        "new ready running waiting terminated",
+        "state transitions"
+      ],
+      "synonyms": [
+        "process states",
+        "process state transition diagram"
+      ],
+      "context_words": [
+        "state"
+      ]
+    },
+    {
+      "id": "2301202/u2/process/ipc",
+      "parent": "2301202/u2/process",
+      "kind": "topic",
+      "label": "Inter-process communication",
+      "order": 3,
+      "source_text": "Inter-process communication",
+      "description": "Shared memory and message passing between processes.",
+      "key_points": [
+        "shared memory",
+        "message passing",
+        "pipes"
+      ],
+      "synonyms": [
+        "inter process communication",
+        "interprocess communication"
+      ],
+      "acronyms": [
+        "IPC"
+      ],
+      "context_words": [
+        "communication",
+        "message"
+      ]
+    },
+    {
+      "id": "2301202/u2/cpu-scheduling",
+      "parent": "2301202/u2",
+      "kind": "heading",
+      "label": "Process scheduling types",
+      "order": 3,
+      "source_text": "Process scheduling types:",
+      "description": "CPU scheduling algorithms and how to compute waiting and turnaround times.",
+      "synonyms": [
+        "cpu scheduling",
+        "process scheduling",
+        "scheduling algorithms"
+      ],
+      "scope_terms": [
+        "gantt chart",
+        "waiting time",
+        "turnaround time",
+        "preemptive",
+        "non-preemptive"
+      ],
+      "context_words": [
+        "cpu",
+        "process",
+        "burst",
+        "waiting time",
+        "turnaround",
+        "gantt"
+      ]
+    },
+    {
+      "id": "2301202/u2/cpu-scheduling/fcfs",
+      "parent": "2301202/u2/cpu-scheduling",
+      "kind": "topic",
+      "label": "First come first serve (CPU scheduling)",
+      "order": 0,
+      "source_text": "First come first serve",
+      "description": "Processes run in arrival order.",
+      "key_points": [
+        "arrival order",
+        "convoy effect",
+        "non-preemptive"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u5/disk-scheduling/fcfs",
+          "how": "schedules processes on the CPU, not disk requests"
+        }
+      ],
+      "synonyms": [
+        "first come first serve scheduling",
+        "fcfs scheduling",
+        "first come first served"
+      ],
+      "acronyms": [
+        "FCFS"
+      ],
+      "context_words": [
+        "cpu",
+        "process",
+        "burst",
+        "waiting time",
+        "gantt"
+      ]
+    },
+    {
+      "id": "2301202/u2/cpu-scheduling/sjf",
+      "parent": "2301202/u2/cpu-scheduling",
+      "kind": "topic",
+      "label": "Shortest job first",
+      "order": 1,
+      "source_text": "Shortest job first",
+      "description": "The process with the smallest next CPU burst runs first; preemptive form is SRTF.",
+      "key_points": [
+        "shortest burst",
+        "srtf",
+        "burst length prediction"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u5/disk-scheduling/sstf",
+          "how": "shortest CPU burst, not shortest disk seek"
+        }
+      ],
+      "synonyms": [
+        "shortest job first scheduling",
+        "sjf scheduling",
+        "shortest remaining time first"
+      ],
+      "acronyms": [
+        "SJF",
+        "SRTF"
+      ],
+      "context_words": [
+        "cpu",
+        "burst",
+        "job"
+      ]
+    },
+    {
+      "id": "2301202/u2/cpu-scheduling/round-robin",
+      "parent": "2301202/u2/cpu-scheduling",
+      "kind": "topic",
+      "label": "Round robin",
+      "order": 2,
+      "source_text": "Round robin",
+      "description": "Each process gets a fixed time quantum in turn.",
+      "key_points": [
+        "time quantum",
+        "preemptive",
+        "context switch"
+      ],
+      "synonyms": [
+        "round robin scheduling"
+      ],
+      "acronyms": [
+        "RR"
+      ],
+      "context_words": [
+        "quantum",
+        "round robin"
+      ]
+    },
+    {
+      "id": "2301202/u2/cpu-scheduling/priority",
+      "parent": "2301202/u2/cpu-scheduling",
+      "kind": "topic",
+      "label": "Priority-based scheduling",
+      "order": 3,
+      "source_text": "Priority-based scheduling",
+      "description": "The highest-priority process runs first; starvation and aging.",
+      "key_points": [
+        "priority number",
+        "starvation",
+        "aging"
+      ],
+      "synonyms": [
+        "priority scheduling"
+      ],
+      "context_words": [
+        "priority"
+      ]
+    },
+    {
+      "id": "2301202/u2/threads",
+      "parent": "2301202/u2",
+      "kind": "heading",
+      "label": "Threads",
+      "order": 4,
+      "source_text": "Threads:",
+      "description": "Threads, multicore programming and threading models.",
+      "context_words": [
+        "thread",
+        "threads"
+      ]
+    },
+    {
+      "id": "2301202/u2/threads/multicore-programming",
+      "parent": "2301202/u2/threads",
+      "kind": "topic",
+      "label": "Multi-core programming",
+      "order": 0,
+      "source_text": "Multi-core programming",
+      "description": "Programming for multicore systems: concurrency vs parallelism and its challenges.",
+      "key_points": [
+        "concurrency vs parallelism",
+        "data parallelism",
+        "task parallelism"
+      ],
+      "synonyms": [
+        "multicore programming"
+      ],
+      "context_words": [
+        "multicore",
+        "multi-core",
+        "parallelism"
+      ]
+    },
+    {
+      "id": "2301202/u2/threads/multithreading-models",
+      "parent": "2301202/u2/threads",
+      "kind": "topic",
+      "label": "Multithreading models",
+      "order": 1,
+      "source_text": "Multithreading models",
+      "description": "Mapping user threads to kernel threads.",
+      "key_points": [
+        "many-to-one",
+        "one-to-one",
+        "many-to-many",
+        "user vs kernel threads"
+      ],
+      "synonyms": [
+        "multithreading models",
+        "threading models"
+      ],
+      "context_words": [
+        "model",
+        "user thread",
+        "kernel thread"
+      ]
+    },
+    {
+      "id": "2301202/u2/threads/implicit-threading",
+      "parent": "2301202/u2/threads",
+      "kind": "topic",
+      "label": "Implicit threading",
+      "order": 2,
+      "source_text": "Implicit threading",
+      "description": "Letting compilers and libraries manage threads.",
+      "key_points": [
+        "thread pools",
+        "openmp",
+        "fork-join"
+      ],
+      "synonyms": [
+        "implicit threading"
+      ],
+      "context_words": [
+        "implicit",
+        "thread pool"
+      ]
+    },
+    {
+      "id": "2301202/u2/threads/threading-issues",
+      "parent": "2301202/u2/threads",
+      "kind": "topic",
+      "label": "Threading issues",
+      "order": 3,
+      "source_text": "Threading issues",
+      "description": "Problems specific to multithreaded programs.",
+      "key_points": [
+        "fork and exec",
+        "signal handling",
+        "thread cancellation",
+        "thread-local storage"
+      ],
+      "synonyms": [
+        "threading issues"
+      ],
+      "context_words": [
+        "issues"
+      ]
+    },
+    {
+      "id": "2301202/u3",
+      "parent": "2301202",
+      "kind": "unit",
+      "label": "Process coordination",
+      "order": 2,
+      "source_text": "Unit III Process coordination (07 hrs) CO3",
+      "unit_meta": {
+        "number": 3,
+        "hours": 7,
+        "course_outcomes": [
+          "CO3"
+        ]
+      }
+    },
+    {
+      "id": "2301202/u3/synchronization",
+      "parent": "2301202/u3",
+      "kind": "heading",
+      "label": "Synchronization",
+      "order": 0,
+      "source_text": "Synchronization:",
+      "description": "Coordinating processes that share data: the critical-section problem and its solutions.",
+      "synonyms": [
+        "process synchronization"
+      ],
+      "context_words": [
+        "synchronization",
+        "critical section"
+      ]
+    },
+    {
+      "id": "2301202/u3/synchronization/critical-section-problem",
+      "parent": "2301202/u3/synchronization",
+      "kind": "topic",
+      "label": "The critical-section problem",
+      "order": 0,
+      "source_text": "The critical-section problem",
+      "description": "Ensuring only one process runs its critical section at a time.",
+      "key_points": [
+        "mutual exclusion",
+        "progress",
+        "bounded waiting",
+        "race condition"
+      ],
+      "synonyms": [
+        "critical section problem",
+        "critical section"
+      ],
+      "scope_terms": [
+        "race condition",
+        "entry section",
+        "exit section"
+      ],
+      "context_words": [
+        "critical section"
+      ]
+    },
+    {
+      "id": "2301202/u3/synchronization/petersons-solution",
+      "parent": "2301202/u3/synchronization",
+      "kind": "topic",
+      "label": "Peterson's solution",
+      "order": 1,
+      "source_text": "Peterson’s solution",
+      "description": "A software solution to the critical-section problem for two processes.",
+      "key_points": [
+        "flag array",
+        "turn variable",
+        "two processes"
+      ],
+      "synonyms": [
+        "peterson's solution",
+        "peterson's algorithm"
+      ],
+      "context_words": [
+        "peterson"
+      ]
+    },
+    {
+      "id": "2301202/u3/synchronization/synchronization-hardware",
+      "parent": "2301202/u3/synchronization",
+      "kind": "topic",
+      "label": "Synchronization hardware",
+      "order": 2,
+      "source_text": "Synchronization hardware",
+      "description": "Atomic hardware instructions used to build locks.",
+      "key_points": [
+        "test_and_set",
+        "compare_and_swap",
+        "atomic instruction"
+      ],
+      "synonyms": [
+        "hardware synchronization"
+      ],
+      "context_words": [
+        "hardware",
+        "atomic"
+      ]
+    },
+    {
+      "id": "2301202/u3/synchronization/mutex-locks",
+      "parent": "2301202/u3/synchronization",
+      "kind": "topic",
+      "label": "Mutex locks",
+      "order": 3,
+      "source_text": "Mutex locks",
+      "description": "Locks with acquire and release; busy waiting and spinlocks.",
+      "key_points": [
+        "acquire and release",
+        "spinlock",
+        "busy waiting"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u3/synchronization/semaphores",
+          "how": "a binary lock, not a counting signal mechanism"
+        }
+      ],
+      "synonyms": [
+        "mutex",
+        "mutex lock"
+      ],
+      "context_words": [
+        "mutex",
+        "lock"
+      ]
+    },
+    {
+      "id": "2301202/u3/synchronization/semaphores",
+      "parent": "2301202/u3/synchronization",
+      "kind": "topic",
+      "label": "Semaphores",
+      "order": 4,
+      "source_text": "Semaphores",
+      "description": "Integer variables with wait and signal operations; counting and binary semaphores.",
+      "key_points": [
+        "wait and signal",
+        "counting semaphore",
+        "binary semaphore"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u3/synchronization/mutex-locks",
+          "how": "a counter with wait/signal, not just a lock"
+        }
+      ],
+      "synonyms": [
+        "semaphore"
+      ],
+      "scope_terms": [
+        "wait()",
+        "signal()",
+        "p and v operations"
+      ],
+      "context_words": [
+        "semaphore",
+        "wait",
+        "signal"
+      ]
+    },
+    {
+      "id": "2301202/u3/classic-problems",
+      "parent": "2301202/u3",
+      "kind": "heading",
+      "label": "Classic problems of synchronization",
+      "order": 1,
+      "source_text": "Classic problems of synchronization:",
+      "description": "Standard synchronization problems and their semaphore solutions.",
+      "synonyms": [
+        "classical problems of synchronization",
+        "classic synchronization problems"
+      ],
+      "context_words": [
+        "problem",
+        "synchronization"
+      ]
+    },
+    {
+      "id": "2301202/u3/classic-problems/producer-consumer",
+      "parent": "2301202/u3/classic-problems",
+      "kind": "topic",
+      "label": "Producer-consumer problem",
+      "order": 0,
+      "source_text": "Producer-consumer problem",
+      "description": "A bounded buffer shared by producers and consumers.",
+      "key_points": [
+        "bounded buffer",
+        "full and empty semaphores"
+      ],
+      "synonyms": [
+        "producer consumer problem",
+        "bounded buffer problem"
+      ],
+      "context_words": [
+        "producer",
+        "consumer",
+        "buffer"
+      ]
+    },
+    {
+      "id": "2301202/u3/classic-problems/reader-writer",
+      "parent": "2301202/u3/classic-problems",
+      "kind": "topic",
+      "label": "Readers-writers problem",
+      "order": 1,
+      "source_text": "Reader/writer problem",
+      "description": "Many readers or one writer may access shared data.",
+      "key_points": [
+        "readers preference",
+        "writers preference",
+        "read count"
+      ],
+      "synonyms": [
+        "reader writer problem",
+        "readers writers problem"
+      ],
+      "context_words": [
+        "reader",
+        "writer"
+      ]
+    },
+    {
+      "id": "2301202/u3/classic-problems/dining-philosophers",
+      "parent": "2301202/u3/classic-problems",
+      "kind": "topic",
+      "label": "Dining philosophers problem",
+      "order": 2,
+      "source_text": "Dining philosopher problem",
+      "description": "Five philosophers sharing chopsticks; deadlock and starvation.",
+      "key_points": [
+        "chopsticks",
+        "deadlock-free solution"
+      ],
+      "synonyms": [
+        "dining philosopher problem",
+        "dining philosophers"
+      ],
+      "context_words": [
+        "philosopher",
+        "chopstick"
+      ]
+    },
+    {
+      "id": "2301202/u3/deadlock",
+      "parent": "2301202/u3",
+      "kind": "heading",
+      "label": "Deadlock",
+      "order": 2,
+      "source_text": "Deadlock:",
+      "description": "How deadlocks arise and how the OS prevents, avoids, detects and recovers from them.",
+      "synonyms": [
+        "deadlocks"
+      ],
+      "context_words": [
+        "deadlock"
+      ]
+    },
+    {
+      "id": "2301202/u3/deadlock/characterization",
+      "parent": "2301202/u3/deadlock",
+      "kind": "topic",
+      "label": "Deadlock characterization",
+      "order": 0,
+      "source_text": "Deadlock characterization",
+      "description": "The four necessary conditions and the resource-allocation graph.",
+      "key_points": [
+        "mutual exclusion",
+        "hold and wait",
+        "no preemption",
+        "circular wait",
+        "resource allocation graph"
+      ],
+      "synonyms": [
+        "necessary conditions for deadlock",
+        "deadlock conditions"
+      ],
+      "acronyms": [
+        "RAG"
+      ],
+      "scope_terms": [
+        "resource allocation graph"
+      ],
+      "context_words": [
+        "conditions",
+        "characterization"
+      ]
+    },
+    {
+      "id": "2301202/u3/deadlock/handling-methods",
+      "parent": "2301202/u3/deadlock",
+      "kind": "topic",
+      "label": "Methods for handling deadlocks",
+      "order": 1,
+      "source_text": "Methods for handling deadlocks",
+      "description": "The overall strategies: prevent, avoid, detect and recover, or ignore.",
+      "distinguish_from": [
+        {
+          "node": "2301202/u3/deadlock/prevention",
+          "how": "the overview of all strategies, not one strategy in depth"
+        }
+      ],
+      "synonyms": [
+        "methods for handling deadlocks",
+        "deadlock handling"
+      ],
+      "context_words": [
+        "methods",
+        "handling"
+      ]
+    },
+    {
+      "id": "2301202/u3/deadlock/prevention",
+      "parent": "2301202/u3/deadlock",
+      "kind": "topic",
+      "label": "Deadlock prevention",
+      "order": 2,
+      "source_text": "Deadlock prevention",
+      "description": "Making one of the four necessary conditions impossible.",
+      "key_points": [
+        "deny hold and wait",
+        "allow preemption",
+        "resource ordering"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u3/deadlock/avoidance",
+          "how": "breaks a necessary condition in advance; avoidance decides safely at run time"
+        }
+      ],
+      "synonyms": [
+        "deadlock prevention"
+      ],
+      "context_words": [
+        "prevent",
+        "prevention"
+      ]
+    },
+    {
+      "id": "2301202/u3/deadlock/avoidance",
+      "parent": "2301202/u3/deadlock",
+      "kind": "topic",
+      "label": "Deadlock avoidance",
+      "order": 3,
+      "source_text": "Deadlock avoidance",
+      "description": "Granting requests only if the system stays in a safe state.",
+      "key_points": [
+        "safe state",
+        "banker's algorithm",
+        "resource request algorithm",
+        "safety algorithm"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u3/deadlock/detection",
+          "how": "stays safe before granting; detection finds deadlocks after they occur"
+        }
+      ],
+      "synonyms": [
+        "deadlock avoidance"
+      ],
+      "scope_terms": [
+        "banker's algorithm",
+        "safe sequence",
+        "need matrix",
+        "claim edge"
+      ],
+      "context_words": [
+        "avoid",
+        "avoidance",
+        "safe",
+        "banker"
+      ],
+      "split": {
+        "from": "Deadlock avoidance and detection",
+        "by": "claude",
+        "reason": "The line joins independently examinable topics."
+      }
+    },
+    {
+      "id": "2301202/u3/deadlock/detection",
+      "parent": "2301202/u3/deadlock",
+      "kind": "topic",
+      "label": "Deadlock detection",
+      "order": 4,
+      "source_text": "detection",
+      "description": "Finding deadlocks that have occurred using wait-for graphs or a detection algorithm.",
+      "key_points": [
+        "wait-for graph",
+        "detection algorithm"
+      ],
+      "synonyms": [
+        "deadlock detection"
+      ],
+      "context_words": [
+        "detect",
+        "detection",
+        "wait-for"
+      ],
+      "split": {
+        "from": "Deadlock avoidance and detection",
+        "by": "claude",
+        "reason": "The line joins independently examinable topics."
+      }
+    },
+    {
+      "id": "2301202/u3/deadlock/recovery",
+      "parent": "2301202/u3/deadlock",
+      "kind": "topic",
+      "label": "Recovery from deadlock",
+      "order": 5,
+      "source_text": "Recovery from deadlock",
+      "description": "Breaking a deadlock by terminating processes or preempting resources.",
+      "key_points": [
+        "process termination",
+        "resource preemption",
+        "victim selection",
+        "rollback"
+      ],
+      "synonyms": [
+        "recovery from deadlock",
+        "deadlock recovery"
+      ],
+      "context_words": [
+        "recover",
+        "recovery",
+        "victim"
+      ]
+    },
+    {
+      "id": "2301202/u4",
+      "parent": "2301202",
+      "kind": "unit",
+      "label": "Memory Management",
+      "order": 3,
+      "source_text": "Unit IV Memory Management (07 hrs) CO4",
+      "unit_meta": {
+        "number": 4,
+        "hours": 7,
+        "course_outcomes": [
+          "CO4"
+        ]
+      }
+    },
+    {
+      "id": "2301202/u4/partitioning",
+      "parent": "2301202/u4",
+      "kind": "heading",
+      "label": "Memory partitioning",
+      "order": 0,
+      "source_text": "Memory Partitioning:",
+      "description": "Dividing main memory into partitions for processes.",
+      "synonyms": [
+        "memory partitioning"
+      ],
+      "context_words": [
+        "partition",
+        "partitioning"
+      ]
+    },
+    {
+      "id": "2301202/u4/partitioning/fixed",
+      "parent": "2301202/u4/partitioning",
+      "kind": "topic",
+      "label": "Fixed partitioning",
+      "order": 0,
+      "source_text": "Fixed partitioning",
+      "description": "Memory divided into fixed-size partitions; internal fragmentation.",
+      "key_points": [
+        "internal fragmentation",
+        "equal and unequal partitions"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u4/partitioning/dynamic",
+          "how": "partitions fixed in advance; internal fragmentation"
+        }
+      ],
+      "synonyms": [
+        "fixed partitioning",
+        "static partitioning"
+      ],
+      "context_words": [
+        "fixed"
+      ]
+    },
+    {
+      "id": "2301202/u4/partitioning/dynamic",
+      "parent": "2301202/u4/partitioning",
+      "kind": "topic",
+      "label": "Dynamic partitioning",
+      "order": 1,
+      "source_text": "Dynamic partitioning",
+      "description": "Partitions created to fit each process; external fragmentation and compaction.",
+      "key_points": [
+        "external fragmentation",
+        "compaction"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u4/partitioning/fixed",
+          "how": "partitions sized to each process; external fragmentation"
+        }
+      ],
+      "synonyms": [
+        "dynamic partitioning",
+        "variable partitioning"
+      ],
+      "context_words": [
+        "dynamic",
+        "variable"
+      ]
+    },
+    {
+      "id": "2301202/u4/allocation",
+      "parent": "2301202/u4",
+      "kind": "heading",
+      "label": "Contiguous memory allocation techniques",
+      "order": 1,
+      "source_text": "Contiguous Memory allocation techniques:",
+      "description": "Placement algorithms for contiguous allocation, plus swapping, paging structures and segmentation as printed.",
+      "synonyms": [
+        "contiguous memory allocation",
+        "memory allocation techniques"
+      ],
+      "context_words": [
+        "allocation",
+        "hole",
+        "partition"
+      ]
+    },
+    {
+      "id": "2301202/u4/allocation/first-fit",
+      "parent": "2301202/u4/allocation",
+      "kind": "topic",
+      "label": "First fit",
+      "order": 0,
+      "source_text": "First fit",
+      "description": "Allocate the first hole large enough.",
+      "key_points": [
+        "first hole"
+      ],
+      "synonyms": [
+        "first fit algorithm"
+      ],
+      "context_words": [
+        "fit",
+        "hole"
+      ]
+    },
+    {
+      "id": "2301202/u4/allocation/best-fit",
+      "parent": "2301202/u4/allocation",
+      "kind": "topic",
+      "label": "Best fit",
+      "order": 1,
+      "source_text": "Best fit",
+      "description": "Allocate the smallest hole large enough.",
+      "key_points": [
+        "smallest adequate hole"
+      ],
+      "synonyms": [
+        "best fit algorithm"
+      ],
+      "context_words": [
+        "fit",
+        "hole"
+      ]
+    },
+    {
+      "id": "2301202/u4/allocation/worst-fit",
+      "parent": "2301202/u4/allocation",
+      "kind": "topic",
+      "label": "Worst fit",
+      "order": 2,
+      "source_text": "Worst fit",
+      "description": "Allocate the largest hole.",
+      "key_points": [
+        "largest hole"
+      ],
+      "synonyms": [
+        "worst fit algorithm"
+      ],
+      "context_words": [
+        "fit",
+        "hole"
+      ]
+    },
+    {
+      "id": "2301202/u4/allocation/swapping",
+      "parent": "2301202/u4/allocation",
+      "kind": "topic",
+      "label": "Swapping",
+      "order": 3,
+      "source_text": "Swapping",
+      "description": "Moving processes between main memory and a backing store.",
+      "key_points": [
+        "backing store",
+        "roll out roll in"
+      ],
+      "synonyms": [
+        "swapping"
+      ],
+      "context_words": [
+        "swap"
+      ]
+    },
+    {
+      "id": "2301202/u4/allocation/page-table-structure",
+      "parent": "2301202/u4/allocation",
+      "kind": "topic",
+      "label": "Structure of the page table",
+      "order": 4,
+      "source_text": "Structure of the page table",
+      "description": "Paging and how page tables are organised.",
+      "key_points": [
+        "hierarchical paging",
+        "hashed page table",
+        "inverted page table",
+        "page and frame"
+      ],
+      "synonyms": [
+        "page table structure",
+        "paging",
+        "page table"
+      ],
+      "scope_terms": [
+        "page number",
+        "frame number",
+        "page offset",
+        "paging hardware"
+      ],
+      "context_words": [
+        "page table",
+        "paging",
+        "frame"
+      ]
+    },
+    {
+      "id": "2301202/u4/allocation/segmentation",
+      "parent": "2301202/u4/allocation",
+      "kind": "topic",
+      "label": "Segmentation",
+      "order": 5,
+      "source_text": "Segmentation",
+      "description": "Memory divided into variable-length logical segments with a segment table.",
+      "key_points": [
+        "segment table",
+        "base and limit",
+        "logical view"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u4/allocation/page-table-structure",
+          "how": "variable-length logical segments, not fixed-size pages"
+        }
+      ],
+      "synonyms": [
+        "segmentation"
+      ],
+      "context_words": [
+        "segment"
+      ]
+    },
+    {
+      "id": "2301202/u4/allocation/demand-paging",
+      "parent": "2301202/u4/allocation",
+      "kind": "topic",
+      "label": "Demand paging",
+      "order": 6,
+      "source_text": "Demand paging",
+      "description": "Loading pages only when needed; page faults and their handling.",
+      "key_points": [
+        "page fault",
+        "lazy swapper",
+        "valid-invalid bit"
+      ],
+      "synonyms": [
+        "demand paging",
+        "virtual memory"
+      ],
+      "scope_terms": [
+        "page fault",
+        "virtual memory",
+        "thrashing"
+      ],
+      "context_words": [
+        "demand",
+        "page fault"
+      ]
+    },
+    {
+      "id": "2301202/u4/page-replacement",
+      "parent": "2301202/u4",
+      "kind": "heading",
+      "label": "Page replacement algorithms",
+      "order": 2,
+      "source_text": "Page Replacement algorithms:",
+      "description": "Choosing which page to evict on a page fault; counting page faults for a reference string.",
+      "synonyms": [
+        "page replacement algorithms",
+        "page replacement"
+      ],
+      "scope_terms": [
+        "reference string",
+        "page faults",
+        "belady's anomaly",
+        "hit ratio"
+      ],
+      "context_words": [
+        "page replacement",
+        "reference string",
+        "frames",
+        "page fault"
+      ]
+    },
+    {
+      "id": "2301202/u4/page-replacement/fifo",
+      "parent": "2301202/u4/page-replacement",
+      "kind": "topic",
+      "label": "First in first out page replacement",
+      "order": 0,
+      "source_text": "First in first out",
+      "description": "Evict the page that entered memory first.",
+      "key_points": [
+        "oldest page",
+        "belady's anomaly"
+      ],
+      "synonyms": [
+        "fifo page replacement",
+        "first in first out"
+      ],
+      "acronyms": [
+        "FIFO"
+      ],
+      "context_words": [
+        "page",
+        "reference string",
+        "fifo"
+      ]
+    },
+    {
+      "id": "2301202/u4/page-replacement/optimal",
+      "parent": "2301202/u4/page-replacement",
+      "kind": "topic",
+      "label": "Optimal page replacement",
+      "order": 1,
+      "source_text": "Optimal page replacement",
+      "description": "Evict the page not needed for the longest time; the theoretical best.",
+      "key_points": [
+        "furthest future use",
+        "lowest page faults"
+      ],
+      "synonyms": [
+        "optimal page replacement",
+        "opt"
+      ],
+      "acronyms": [
+        "OPT"
+      ],
+      "context_words": [
+        "optimal",
+        "page"
+      ]
+    },
+    {
+      "id": "2301202/u4/page-replacement/lru",
+      "parent": "2301202/u4/page-replacement",
+      "kind": "topic",
+      "label": "Least recently used",
+      "order": 2,
+      "source_text": "Least recently used",
+      "description": "Evict the page unused for the longest time.",
+      "key_points": [
+        "recency",
+        "counter or stack implementation"
+      ],
+      "synonyms": [
+        "least recently used",
+        "lru page replacement"
+      ],
+      "acronyms": [
+        "LRU"
+      ],
+      "context_words": [
+        "recently",
+        "page"
+      ],
+      "split": {
+        "from": "Least recently used translation lookaside buffer",
+        "by": "claude",
+        "reason": "The line joins independently examinable topics."
+      }
+    },
+    {
+      "id": "2301202/u4/page-replacement/tlb",
+      "parent": "2301202/u4/page-replacement",
+      "kind": "topic",
+      "label": "Translation lookaside buffer",
+      "order": 3,
+      "source_text": "translation lookaside buffer",
+      "description": "A cache of recent page-table entries that speeds address translation.",
+      "key_points": [
+        "tlb hit and miss",
+        "effective access time"
+      ],
+      "synonyms": [
+        "translation lookaside buffer"
+      ],
+      "acronyms": [
+        "TLB"
+      ],
+      "context_words": [
+        "tlb",
+        "lookaside",
+        "translation"
+      ],
+      "split": {
+        "from": "Least recently used translation lookaside buffer",
+        "by": "claude",
+        "reason": "The printed line runs two topics together without a separator."
+      }
+    },
+    {
+      "id": "2301202/u5",
+      "parent": "2301202",
+      "kind": "unit",
+      "label": "I/O management and Introduction to Linux",
+      "order": 4,
+      "source_text": "Unit V I/O management and Introduction to Linux 07 hrs CO5,CO6",
+      "unit_meta": {
+        "number": 5,
+        "hours": 7,
+        "course_outcomes": [
+          "CO5",
+          "CO6"
+        ]
+      }
+    },
+    {
+      "id": "2301202/u5/io-devices",
+      "parent": "2301202/u5",
+      "kind": "topic",
+      "label": "I/O devices",
+      "order": 0,
+      "source_text": "I/O devices",
+      "description": "Kinds of I/O devices and how the OS manages them.",
+      "key_points": [
+        "block and character devices",
+        "device controllers",
+        "dma"
+      ],
+      "synonyms": [
+        "i/o devices",
+        "io devices",
+        "input output devices"
+      ],
+      "context_words": [
+        "i/o",
+        "device"
+      ]
+    },
+    {
+      "id": "2301202/u5/disk-scheduling",
+      "parent": "2301202/u5",
+      "kind": "heading",
+      "label": "Disk scheduling algorithms",
+      "order": 1,
+      "source_text": "Disk scheduling algorithms:",
+      "description": "Ordering disk requests to reduce head movement; computing total seek distance.",
+      "synonyms": [
+        "disk scheduling",
+        "disk scheduling algorithms"
+      ],
+      "scope_terms": [
+        "seek time",
+        "head movement",
+        "cylinder",
+        "request queue"
+      ],
+      "context_words": [
+        "disk",
+        "head",
+        "cylinder",
+        "seek",
+        "track"
+      ]
+    },
+    {
+      "id": "2301202/u5/disk-scheduling/fcfs",
+      "parent": "2301202/u5/disk-scheduling",
+      "kind": "topic",
+      "label": "First come first serve (disk scheduling)",
+      "order": 0,
+      "source_text": "First come first serve",
+      "description": "Serve disk requests in arrival order.",
+      "key_points": [
+        "arrival order of requests"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u2/cpu-scheduling/fcfs",
+          "how": "schedules disk requests, not processes on the CPU"
+        }
+      ],
+      "synonyms": [
+        "fcfs disk scheduling"
+      ],
+      "acronyms": [
+        "FCFS"
+      ],
+      "context_words": [
+        "disk",
+        "head",
+        "cylinder",
+        "seek"
+      ]
+    },
+    {
+      "id": "2301202/u5/disk-scheduling/sstf",
+      "parent": "2301202/u5/disk-scheduling",
+      "kind": "topic",
+      "label": "Shortest seek time first",
+      "order": 1,
+      "source_text": "Shortest seek time first algorithm",
+      "description": "Serve the request closest to the current head position.",
+      "key_points": [
+        "closest request",
+        "starvation"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u2/cpu-scheduling/sjf",
+          "how": "shortest disk seek, not shortest CPU burst"
+        }
+      ],
+      "synonyms": [
+        "shortest seek time first"
+      ],
+      "acronyms": [
+        "SSTF"
+      ],
+      "context_words": [
+        "seek",
+        "head"
+      ]
+    },
+    {
+      "id": "2301202/u5/disk-scheduling/scan",
+      "parent": "2301202/u5/disk-scheduling",
+      "kind": "topic",
+      "label": "SCAN",
+      "order": 2,
+      "source_text": "SCAN",
+      "description": "The head sweeps to one end servicing requests, then reverses (elevator).",
+      "key_points": [
+        "elevator algorithm",
+        "direction of head"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u5/disk-scheduling/c-scan",
+          "how": "reverses and services on the way back"
+        }
+      ],
+      "synonyms": [
+        "scan algorithm",
+        "elevator algorithm"
+      ],
+      "context_words": [
+        "scan",
+        "elevator"
+      ]
+    },
+    {
+      "id": "2301202/u5/disk-scheduling/c-scan",
+      "parent": "2301202/u5/disk-scheduling",
+      "kind": "topic",
+      "label": "Circular SCAN",
+      "order": 3,
+      "source_text": "Circular-SCAN",
+      "description": "Like SCAN but returns to the start without servicing on the return.",
+      "key_points": [
+        "circular return",
+        "uniform wait time"
+      ],
+      "distinguish_from": [
+        {
+          "node": "2301202/u5/disk-scheduling/scan",
+          "how": "jumps back to the start without servicing"
+        }
+      ],
+      "synonyms": [
+        "c-scan",
+        "circular scan"
+      ],
+      "acronyms": [
+        "C-SCAN"
+      ],
+      "context_words": [
+        "circular",
+        "c-scan"
+      ]
+    },
+    {
+      "id": "2301202/u5/bash",
+      "parent": "2301202/u5",
+      "kind": "heading",
+      "label": "Bash shell scripting",
+      "order": 2,
+      "source_text": "Bash shell scripting:",
+      "description": "Writing shell scripts in bash.",
+      "synonyms": [
+        "shell scripting",
+        "bash scripting"
+      ],
+      "context_words": [
+        "bash",
+        "script",
+        "shell script"
+      ]
+    },
+    {
+      "id": "2301202/u5/bash/basic-commands",
+      "parent": "2301202/u5/bash",
+      "kind": "topic",
+      "label": "Basic shell commands",
+      "order": 0,
+      "source_text": "Basic shell commands",
+      "description": "Everyday commands used at the bash prompt and in scripts.",
+      "distinguish_from": [
+        {
+          "node": "2301202/u5/linux/shell-commands",
+          "how": "commands as used in bash scripting, not the listed Linux commands"
+        }
+      ],
+      "synonyms": [
+        "basic shell commands",
+        "bash commands"
+      ],
+      "context_words": [
+        "bash",
+        "command"
+      ],
+      "split": {
+        "from": "Basic shell commands and scripting language",
+        "by": "claude",
+        "reason": "The line joins independently examinable topics."
+      }
+    },
+    {
+      "id": "2301202/u5/bash/scripting-language",
+      "parent": "2301202/u5/bash",
+      "kind": "topic",
+      "label": "Shell scripting language",
+      "order": 1,
+      "source_text": "scripting language",
+      "description": "Variables, conditionals, loops and functions in shell scripts.",
+      "key_points": [
+        "variables",
+        "if and case",
+        "for and while loops",
+        "command line arguments"
+      ],
+      "synonyms": [
+        "shell script",
+        "shell programming",
+        "bash script"
+      ],
+      "context_words": [
+        "script",
+        "loop"
+      ],
+      "split": {
+        "from": "Basic shell commands and scripting language",
+        "by": "claude",
+        "reason": "The line joins independently examinable topics."
+      }
+    },
+    {
+      "id": "2301202/u5/linux",
+      "parent": "2301202/u5",
+      "kind": "heading",
+      "label": "Introduction to Linux",
+      "order": 3,
+      "source_text": "Introduction to Linux:",
+      "description": "Linux features, file system, commands, utilities and permissions.",
+      "synonyms": [
+        "linux"
+      ],
+      "context_words": [
+        "linux"
+      ]
+    },
+    {
+      "id": "2301202/u5/linux/features",
+      "parent": "2301202/u5/linux",
+      "kind": "topic",
+      "label": "Essential features of Linux",
+      "order": 0,
+      "source_text": "Essential features",
+      "description": "Key features of Linux as an operating system.",
+      "key_points": [
+        "multiuser",
+        "multitasking",
+        "portability",
+        "open source"
+      ],
+      "synonyms": [
+        "features of linux",
+        "linux features"
+      ],
+      "context_words": [
+        "features"
+      ]
+    },
+    {
+      "id": "2301202/u5/linux/file-systems",
+      "parent": "2301202/u5/linux",
+      "kind": "topic",
+      "label": "Linux file systems",
+      "order": 1,
+      "source_text": "File systems",
+      "description": "The Linux file system hierarchy and file types.",
+      "key_points": [
+        "root directory",
+        "inode",
+        "file types"
+      ],
+      "synonyms": [
+        "linux file system",
+        "file system structure"
+      ],
+      "context_words": [
+        "file system"
+      ]
+    },
+    {
+      "id": "2301202/u5/linux/directories",
+      "parent": "2301202/u5/linux",
+      "kind": "topic",
+      "label": "Directories",
+      "order": 2,
+      "source_text": "directories",
+      "description": "Directory structure and working with directories.",
+      "key_points": [
+        "/home /etc /bin",
+        "absolute and relative path"
+      ],
+      "synonyms": [
+        "linux directories",
+        "directory structure"
+      ],
+      "context_words": [
+        "directory"
+      ]
+    },
+    {
+      "id": "2301202/u5/linux/shell-commands",
+      "parent": "2301202/u5/linux",
+      "kind": "topic",
+      "label": "Linux shell commands",
+      "order": 3,
+      "source_text": "Linux shell commands such as pwd, cd, ls, cat, rm, cp, mkdir",
+      "description": "Core commands for navigating and managing files.",
+      "key_points": [
+        "pwd",
+        "cd",
+        "ls",
+        "cat",
+        "rm",
+        "cp",
+        "mkdir"
+      ],
+      "synonyms": [
+        "linux commands",
+        "unix commands"
+      ],
+      "context_words": [
+        "pwd",
+        "ls",
+        "cat",
+        "mkdir",
+        "command"
+      ]
+    },
+    {
+      "id": "2301202/u5/linux/utilities",
+      "parent": "2301202/u5/linux",
+      "kind": "topic",
+      "label": "Linux utilities",
+      "order": 4,
+      "source_text": "Linux utilities such as tr, sed, grep, egrep, awk",
+      "description": "Text-processing utilities and filters.",
+      "key_points": [
+        "tr",
+        "sed",
+        "grep",
+        "egrep",
+        "awk"
+      ],
+      "synonyms": [
+        "linux utilities",
+        "unix utilities",
+        "filters"
+      ],
+      "context_words": [
+        "grep",
+        "sed",
+        "awk",
+        "tr",
+        "utility"
+      ]
+    },
+    {
+      "id": "2301202/u5/linux/file-access-rights",
+      "parent": "2301202/u5/linux",
+      "kind": "topic",
+      "label": "File access rights",
+      "order": 5,
+      "source_text": "File access rights",
+      "description": "Read, write and execute permissions for user, group and others.",
+      "key_points": [
+        "rwx",
+        "chmod",
+        "chown",
+        "umask"
+      ],
+      "synonyms": [
+        "file permissions",
+        "access rights"
+      ],
+      "context_words": [
+        "permission",
+        "access",
+        "chmod"
+      ]
+    }
+  ],
+  "cross_links": [
+    {
+      "a": "2301202/u1/assemblers-overview",
+      "b": "2301202/u1/assemblers",
+      "strength": "related",
+      "reason": "The overview item and the Assemblers heading cover the same component at two depths.",
+      "source": "textbook: Dhamdhere, Systems Programming and Operating Systems",
+      "confidence": 0.9,
+      "by": "claude"
+    },
+    {
+      "a": "2301202/u3/synchronization/semaphores",
+      "b": "2301202/u3/classic-problems",
+      "strength": "related",
+      "reason": "Classic synchronization problems are solved with semaphores.",
+      "source": "textbook: Silberschatz, Galvin, Gagne, Operating System Concepts",
+      "confidence": 0.85,
+      "by": "claude"
+    },
+    {
+      "a": "2301202/u3/classic-problems/dining-philosophers",
+      "b": "2301202/u3/deadlock/characterization",
+      "strength": "related",
+      "reason": "Dining philosophers is the standard illustration of deadlock and starvation.",
+      "source": "textbook: Silberschatz, Galvin, Gagne, Operating System Concepts",
+      "confidence": 0.6,
+      "by": "claude"
+    },
+    {
+      "a": "2301202/u2/threads",
+      "b": "2301202/u2/process/concept",
+      "strength": "related",
+      "reason": "Threads are lightweight units of execution within a process.",
+      "source": "textbook: Silberschatz, Galvin, Gagne, Operating System Concepts",
+      "confidence": 0.6,
+      "by": "claude"
+    },
+    {
+      "a": "2301202/u4/allocation/demand-paging",
+      "b": "2301202/u4/page-replacement",
+      "strength": "related",
+      "reason": "Page replacement is needed when demand paging faults with no free frame.",
+      "source": "textbook: Silberschatz, Galvin, Gagne, Operating System Concepts",
+      "confidence": 0.85,
+      "by": "claude"
+    },
+    {
+      "a": "2301202/u4/page-replacement/tlb",
+      "b": "2301202/u4/allocation/page-table-structure",
+      "strength": "related",
+      "reason": "The TLB caches page-table entries.",
+      "source": "textbook: Silberschatz, Galvin, Gagne, Operating System Concepts",
+      "confidence": 0.8,
+      "by": "claude"
+    },
+    {
+      "a": "2301202/u4/allocation/segmentation",
+      "b": "2301202/u4/allocation/page-table-structure",
+      "strength": "related",
+      "reason": "Paging and segmentation are routinely compared.",
+      "source": "textbook: Silberschatz, Galvin, Gagne, Operating System Concepts",
+      "confidence": 0.6,
+      "by": "claude"
+    },
+    {
+      "a": "2301202/u5/bash/basic-commands",
+      "b": "2301202/u5/linux/shell-commands",
+      "strength": "related",
+      "reason": "Both cover everyday shell commands.",
+      "source": "general",
+      "confidence": 0.8,
+      "by": "claude"
+    },
+    {
+      "a": "2301202/u4/partitioning",
+      "b": "2301202/u4/allocation",
+      "strength": "related",
+      "reason": "Placement algorithms choose partitions or holes for processes.",
+      "source": "textbook: Silberschatz, Galvin, Gagne, Operating System Concepts",
+      "confidence": 0.7,
+      "by": "claude"
+    }
+  ],
+  "provenance": {
+    "generated_by": "Claude (Opus 5.5), from the official syllabus PDF",
+    "generated_on": "2026-09-24",
+    "source_file": "syllabus/raw/KKW-AIDS-2023/SY_2023_pat_AIDS_5th_april_compressed.pdf",
+    "extracted_text": "syllabus/raw/KKW-AIDS-2023/extracted/2301202.txt",
+    "methodology_version": "1.0"
+  },
+  "review": {
+    "status": "validated",
+    "notes": "Unit IV prints structure of the page table, segmentation and demand paging under 'Contiguous Memory allocation techniques' and TLB under 'Page Replacement algorithms'; kept as printed. Unit V is mapped to CO5 and CO6."
+  }
+}

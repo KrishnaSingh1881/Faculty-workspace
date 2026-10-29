@@ -1,0 +1,18 @@
+# Linux option when the host Ollama service listens only on 127.0.0.1.
+services:
+  ollama_bridge:
+    image: python:3.12-slim
+    restart: unless-stopped
+    network_mode: host
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./deploy/ollama_loopback_bridge.py:/bridge.py:ro
+    command: ["python", "/bridge.py"]
+
+  workspace:
+    environment:
+      MODEL_URL: http://host.docker.internal:11435
+    depends_on:
+      ollama_bridge:
+        condition: service_started

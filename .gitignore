@@ -1,0 +1,20 @@
+.venv/
+frontend/node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
+data/
+build/
+dist/
+*.egg-info/
+__pycache__/
+*.pyc
+.pytest_cache/
+benchmark-result.json
+.env
+.env.*
+!.env.example
+
+outputs/
+:memory:.ses
+project-handoff/chat-transcript.md
+Untitled Document

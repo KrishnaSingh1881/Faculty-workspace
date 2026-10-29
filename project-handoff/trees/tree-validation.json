@@ -1,0 +1,32 @@
+[
+  {
+    "course": "Operating Systems",
+    "checks": "passed",
+    "source_unchanged": true,
+    "stats": {
+      "nodes": 92,
+      "units": 5,
+      "enriched_nodes": 86,
+      "directed_distinctions": 198,
+      "nodes_with_distinctions": 63,
+      "assessed_aspects": 2,
+      "open_review_questions": 4,
+      "validation_errors": []
+    }
+  },
+  {
+    "course": "Internet of Things",
+    "checks": "passed",
+    "source_unchanged": true,
+    "stats": {
+      "nodes": 75,
+      "units": 5,
+      "enriched_nodes": 69,
+      "directed_distinctions": 274,
+      "nodes_with_distinctions": 61,
+      "assessed_aspects": 16,
+      "open_review_questions": 10,
+      "validation_errors": []
+    }
+  }
+]
