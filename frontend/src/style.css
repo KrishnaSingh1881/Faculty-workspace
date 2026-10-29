@@ -541,3 +541,13 @@ input:not([type=checkbox]),select,textarea{min-height:40px}
 @media(max-width:1120px){.layout,.layout.has-evidence{grid-template-columns:var(--sidebar-actual) minmax(0,1fr)}}
 @media(max-width:760px){.layout,.layout.has-evidence{display:block}.sidebar{width:min(320px,86vw)}.sidebar-resize-handle{display:none}}
 @media(prefers-reduced-motion:reduce){.sidebar-resize-handle::after{transition:none}}
+
+/* Keep the chat composer in view while long conversations scroll above it. */
+.main.chat-main{height:calc(100dvh - 60px);min-height:0;max-height:calc(100dvh - 60px);overflow:hidden;padding-bottom:18px}
+.chat-main .page-head{flex:none}
+.chat-main .conversation{display:flex;flex:1 1 auto;flex-direction:column;gap:22px;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin:0 auto;padding:0 4px 22px;scrollbar-color:var(--line) transparent}
+.chat-main .conversation>.message{flex:none}
+.chat-main .conversation>.message:first-child{margin-top:auto}
+.chat-main .composer{flex:none;margin:0 auto}
+.chat-main .slash-command-menu{bottom:170px}
+@media(max-width:760px){.main.chat-main{padding-bottom:calc(14px + env(safe-area-inset-bottom))}.chat-main .conversation{padding-bottom:14px}}
