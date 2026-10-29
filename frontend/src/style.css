@@ -508,3 +508,36 @@ input:not([type=checkbox]),select,textarea{min-height:40px}
 .model-grid>div strong{font-size:17px}
 .model-grid p{font-size:var(--type-ui)}
 @media(max-width:760px){.page-head h1{font-size:clamp(32px,8vw,40px)}.content h2{font-size:28px}.bubble{font-size:16px}.main{padding-inline:20px}}
+
+/* Workspace navigation: fixed tools, scrolling recents, adjustable desktop width. */
+.layout{--sidebar-actual:clamp(220px,var(--sidebar-width,264px),min(420px,calc(100vw - 440px)));position:relative;grid-template-columns:var(--sidebar-actual) minmax(0,1fr)}
+.layout.has-evidence{grid-template-columns:var(--sidebar-actual) minmax(0,1fr) 300px}
+.sidebar{overflow:hidden;padding:22px 14px 16px}
+.sidebar .field-label{flex:none}
+.sidebar .new-chat.ui-button{flex:none;justify-content:flex-start;width:calc(100% - 8px);min-height:44px;margin:18px 4px 24px;padding:0 13px;font-size:var(--type-ui);font-weight:650;background:var(--paper);color:var(--text)}
+.sidebar .new-chat.ui-button:hover{border-color:var(--accent);background:var(--soft)}
+.sidebar-group-heading{padding:0 10px 8px;color:var(--muted);font-size:var(--type-meta);font-weight:700;letter-spacing:.075em;text-transform:uppercase}
+.sidebar nav{flex:none;gap:3px}
+.sidebar nav .ui-button{justify-content:flex-start;min-height:42px;padding:9px 11px;font-size:var(--type-ui);font-weight:500}
+.sidebar nav .ui-button.active{font-weight:650}
+.sidebar nav .ui-button svg{flex:none}
+.sidebar-lists{flex:1;min-height:0;overflow:auto;margin:20px -5px 12px;padding:16px 5px 4px;border-top:1px solid var(--line);scrollbar-color:var(--line) transparent}
+.sidebar-lists .sidebar-section{margin-top:0}
+.sidebar-lists .sidebar-section+.sidebar-section{margin-top:22px}
+.sidebar-lists .section-heading{font-weight:700}
+.sidebar-lists .paper-nav{line-height:1.35}
+.sidebar-lists .paper-nav span{overflow-wrap:anywhere}
+.sidebar-settings{flex:none;padding:8px 0 0;border-top:1px solid var(--line)}
+.sidebar-settings>summary{display:flex;align-items:center;gap:10px;min-height:42px;padding:9px 11px;border-radius:7px;color:var(--muted);font-size:var(--type-ui);font-weight:600;cursor:pointer;list-style:none}
+.sidebar-settings>summary::-webkit-details-marker{display:none}
+.sidebar-settings>summary:hover,.sidebar-settings[open]>summary{color:var(--text);background:var(--soft)}
+.sidebar-settings-chevron{margin-left:auto;transition:transform .16s ease}
+.sidebar-settings[open] .sidebar-settings-chevron{transform:rotate(180deg)}
+.sidebar-settings-nav{padding:4px 0 2px}
+.sidebar-resize-handle{position:absolute;z-index:8;top:0;left:calc(var(--sidebar-actual) - 6px);width:12px;height:calc(100vh - 60px);cursor:col-resize;touch-action:none;user-select:none}
+.sidebar-resize-handle::after{content:"";position:absolute;top:0;bottom:0;left:5px;width:2px;background:transparent;transition:background-color .16s ease}
+.sidebar-resize-handle:hover::after,.sidebar-resize-handle:focus-visible::after{background:var(--accent)}
+.sidebar-resize-handle:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+@media(max-width:1120px){.layout,.layout.has-evidence{grid-template-columns:var(--sidebar-actual) minmax(0,1fr)}}
+@media(max-width:760px){.layout,.layout.has-evidence{display:block}.sidebar{width:min(320px,86vw)}.sidebar-resize-handle{display:none}}
+@media(prefers-reduced-motion:reduce){.sidebar-resize-handle::after{transition:none}}
